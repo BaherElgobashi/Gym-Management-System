@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Data.Configuration
 {
-    internal class MemberConfiguration : IEntityTypeConfiguration<Member>
+    internal class MemberConfiguration : GymUserConfiguration<Member>, IEntityTypeConfiguration<Member>
     {
-        public void Configure(EntityTypeBuilder<Member> builder)
+        public new void Configure(EntityTypeBuilder<Member> builder)
         {
-            throw new NotImplementedException();
+            base.Configure(builder);
         }
     }
 }
