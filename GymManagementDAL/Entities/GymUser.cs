@@ -15,4 +15,10 @@ namespace GymManagementDAL.Entities
         public DateOnly DateOfBirth { get; set; }
         public Gender Gender { get; set; }
     }
+    class Address
+    {
+        public int BuildingNumber { get; set; }
+        public string Street { get; set; } = null!;
+        public string City { get; set; } = null!;
+    }
 }
