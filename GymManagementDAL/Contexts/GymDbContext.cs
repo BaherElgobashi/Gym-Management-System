@@ -13,7 +13,7 @@ namespace GymManagementDAL.Contexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = . ; Database = GymManagementSystem ; Trusted_Connection = true ; TrustedServerCertificate = true;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb ; Database = GymManagementSystem ; Trusted_Connection = true ; TrustServerCertificate = true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
