@@ -13,13 +13,25 @@ namespace GymManagementDAL.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        #region Foreign key and Navigational Propery to Category Class.
+        #region RelationShip Between Trainer and Category.
         // Foreign key to Category Class.
         public int CategoryId { get; set; }
 
         // Navigational Propery to Category Class.
 
-        public Category SessionCategory { get; set; } = null!; 
+        public Category SessionCategory { get; set; } = null!;
+        #endregion
+
+
+        #region RelationShip Between Trainer and Session.
+
+        //Foreign Key to Trainer Class.
+        public int TrainerId { get; set; }
+
+        // Navigational property to Trainer Class.
+
+        public Trainer SessionTrainer { get; set; } = null!;
+
         #endregion
     }
 }

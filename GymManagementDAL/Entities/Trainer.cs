@@ -11,5 +11,12 @@ namespace GymManagementDAL.Entities
     {
         // HireDate == CreatedAt of BaseEntity.
         public Specialties Specialties { get; set; }
+
+        #region RelationShip Between Trainer and Session.
+
+        // Navigational Property to Session Class.
+
+        public ICollection<Session> TrainerSessions { get; set; } = null!;
+        #endregion
     }
 }
