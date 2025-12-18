@@ -16,5 +16,11 @@ namespace GymManagementDAL.Entities
         public HealthRecord HealthRecord { get; set; } = null!;
         #endregion
 
+        #region Member - Membership Relationship.
+
+        // Navigational property to Membership Class.
+        public ICollection<Membership> Memberships { get; set; } = null!;
+        #endregion
+
     }
 }
