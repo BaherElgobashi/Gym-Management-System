@@ -33,5 +33,8 @@ namespace GymManagementDAL.Entities
         public Trainer SessionTrainer { get; set; } = null!;
 
         #endregion
+
+
+        public ICollection<MemberSession> SessionMembers { get; set; } = null!;
     }
 }
