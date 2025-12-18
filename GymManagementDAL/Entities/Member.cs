@@ -11,5 +11,10 @@ namespace GymManagementDAL.Entities
         // JoinDate == CreatedAt.
 
         public string? Photo { get; set; }
+        #region Member - HealthRecord Relationship.
+
+        public HealthRecord HealthRecord { get; set; } = null!;
+        #endregion
+
     }
 }

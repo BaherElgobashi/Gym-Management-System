@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
+    // Make One-To-One Relationship with Member Class.
+    // has shared Primary Key inherited from BaseEntity Class.
     internal class HealthRecord : BaseEntity
     {
         public decimal Height { get; set; }
