@@ -20,5 +20,5 @@ namespace GymManagementDAL.Data.Configuration
             builder.HasKey(x => new { x.MemberId , x.SessionId});
             builder.Ignore(x => x.Id);
         }
-    }
+    } 
 }
