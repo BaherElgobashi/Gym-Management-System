@@ -1,3 +1,6 @@
+using GymManagementDAL.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace GymManagementPLL
 {
     public class Program
@@ -8,6 +11,17 @@ namespace GymManagementPLL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            // Add services to make the dependency Injection for GymDbContext.
+            builder.Services.AddDbContext<GymDbContext>(Options =>
+            {
+                Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+                // Another way to define connection string.
+
+                //Options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
+                //Options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+
+            });
 
             var app = builder.Build();
 
