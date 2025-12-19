@@ -23,10 +23,10 @@ namespace GymManagementDAL.Contexts
 
         #region DbSets.
 
-        public DbSet<Member> Member { get; set; }
+        public DbSet<Member> Members { get; set; }
         public DbSet<HealthRecord> HealthRecords { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
-        public DbSet<Plan> Plan { get; set; }
+        public DbSet<Plan> Plans { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Membership> Memberships { get; set; }
