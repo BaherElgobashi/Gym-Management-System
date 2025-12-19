@@ -1,6 +1,7 @@
 ﻿using GymManagementDAL.Contexts;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-    internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity , new()
     {
         private readonly GymDbContext _dbContext;
         public GenericRepository(GymDbContext dbContext)
@@ -19,7 +20,7 @@ namespace GymManagementDAL.Repositories.Classes
         }
         public IEnumerable<TEntity> GetAll()
         {
-            var entities = _dbContext.Set<TEntity>().ToList();
+            var entities = _dbContext.Set<TEntity>().AsNoTracking().ToList();
 
             return entities;
         }
