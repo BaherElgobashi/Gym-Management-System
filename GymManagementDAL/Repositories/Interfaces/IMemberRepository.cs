@@ -15,7 +15,6 @@ namespace GymManagementDAL.Repositories.Interfaces
         // GetById().
         Member GetById(int Id);
 
-
         // Add().
         int Add(Member Member);
 
