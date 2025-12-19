@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Entities
 {
-    internal class Membership : BaseEntity
+    public class Membership : BaseEntity
     {
         // Start Properties.
 
