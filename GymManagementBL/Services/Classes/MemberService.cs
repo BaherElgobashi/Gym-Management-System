@@ -197,5 +197,41 @@ namespace GymManagementBLL.Services.Classes
             };
 
         }
+
+        // This Service to update The Data.
+        public bool UpdateMemberDetails(int Id, MemberToUpdateViewModel UpdatedMember)
+        {
+            try
+            {
+                var EmailExists = _memberRepository.GetAll(x=>x.Email == UpdatedMember.Email).Any();
+
+                var PhoneExists = _memberRepository.GetAll(x => x.Phone == UpdatedMember.Phone).Any();
+
+                if(EmailExists || PhoneExists) return false;
+
+                var Member = _memberRepository.GetById(Id);
+                if(Member == null) return false;
+
+                Member.Name = UpdatedMember.Name;
+                Member.Photo = UpdatedMember.Photo;
+                Member.Email = UpdatedMember.Email;
+                Member.Phone = UpdatedMember.Phone;
+                Member.Address.BuildingNumber = UpdatedMember.BuildingNumber;
+                Member.Address.Street = UpdatedMember.Street;
+                Member.Address.City = UpdatedMember.City;
+                Member.UpdatedAt = DateTime.Now;
+
+                return _memberRepository.Update(Member) > 0;
+
+
+            }
+            catch (Exception) 
+            { 
+                return false;
+            }
+        }
+
+
+       
     }
 }
