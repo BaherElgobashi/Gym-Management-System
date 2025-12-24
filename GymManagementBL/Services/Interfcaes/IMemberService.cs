@@ -23,5 +23,8 @@ namespace GymManagementBLL.Services.Interfcaes
 
         // Get Member To Update show the data only.
         MemberToUpdateViewModel? GetMemberToUpdate(int MemberId);
+
+        // Update Member Details.
+        bool UpdateMemberDetails(int Id , MemberToUpdateViewModel UpdatedMember);
     }
 }
