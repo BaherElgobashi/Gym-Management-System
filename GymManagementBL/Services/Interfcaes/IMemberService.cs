@@ -11,5 +11,8 @@ namespace GymManagementBLL.Services.Interfcaes
     {
         // GetAll.
         IEnumerable<MemberViewModel> GetAllMembers();
+
+        // Create Model.
+        bool CreateMember(CreateMemberViewModel createMember);
     }
 }

@@ -18,11 +18,23 @@ namespace GymManagementDAL.Repositories.Classes
             _dbContext = dbContext;
             
         }
-        public IEnumerable<TEntity> GetAll()
-        {
-            var entities = _dbContext.Set<TEntity>().AsNoTracking().ToList();
+        //public IEnumerable<TEntity> GetAll()
+        //{
+        //    var entities = _dbContext.Set<TEntity>().AsNoTracking().ToList();
 
-            return entities;
+        //    return entities;
+        //}
+
+        public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
+        {
+            if(condition is null)
+            {
+                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+            }
+            else
+            {
+                return _dbContext.Set<TEntity>().AsNoTracking().Where(condition);
+            }
         }
 
         public TEntity? GetById(int Id)
@@ -50,8 +62,6 @@ namespace GymManagementDAL.Repositories.Classes
 
             return _dbContext.SaveChanges();
         }
-
-        
 
         
     }

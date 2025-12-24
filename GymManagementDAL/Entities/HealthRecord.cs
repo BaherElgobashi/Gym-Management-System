@@ -12,7 +12,7 @@ namespace GymManagementDAL.Entities
     {
         public decimal Height { get; set; }
         public decimal Weight { get; set; }
-        public string Blood { get; set; } = null!;
+        public string BloodType { get; set; } = null!;
         public string? Notes { get; set; } = null!;
         
 

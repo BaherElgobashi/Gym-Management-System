@@ -18,6 +18,7 @@ namespace GymManagementBLL.Services.Classes
         {
             _memberRepository = memberRepository;
         }
+
         public IEnumerable<MemberViewModel> GetAllMembers()
         {
             var Members = _memberRepository.GetAll();
@@ -60,6 +61,56 @@ namespace GymManagementBLL.Services.Classes
             #endregion
             return MemberViewModels;
             
+        }
+
+
+        public bool CreateMember(CreateMemberViewModel createMember)
+        {
+            try
+            {
+                // Check If Email Exists.
+                var EmailExists = _memberRepository.GetAll(x => x.Email == createMember.Email).Any();
+
+                // Check If Phone Exists
+                var PhoneExists = _memberRepository.GetAll(x => x.Phone == createMember.Phone).Any();
+
+                // If One Of Them Exists.
+                if (EmailExists || PhoneExists)
+                {
+                    return false;
+                }
+
+                // If Not Add Member and Return True If Added.
+                var Member = new Member()
+                {
+                    Name = createMember.Name,
+                    Email = createMember.Email,
+                    Phone = createMember.Phone,
+                    Gender = createMember.Gender,
+                    DateOfBirth = createMember.DateOfBirth,
+                    Address = new Address()
+                    {
+                        BuildingNumber = createMember.BuildingNumber,
+                        Street = createMember.Street,
+                        City = createMember.City,
+                    },
+                    HealthRecord = new HealthRecord()
+                    {
+                        Height = createMember.HealthRecordViewModel.Height,
+                        Weight = createMember.HealthRecordViewModel.Weight,
+                        BloodType = createMember.HealthRecordViewModel.BloodType,
+                        Notes = createMember.HealthRecordViewModel.Notes
+                    },
+                };
+
+                // Add the new member.
+                return _memberRepository.Add(Member) > 0;
+
+            }
+            catch (Exception )
+            {
+                return false;
+            }
         }
     }
 }
