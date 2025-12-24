@@ -83,14 +83,14 @@ namespace GymManagementBLL.Services.Classes
         {
             try
             {
-                // Check If Email Exists.
-                var EmailExists = _memberRepository.GetAll(x => x.Email == createMember.Email).Any();
+                //// Check If Email Exists.
+                //var EmailExists = _memberRepository.GetAll(x => x.Email == createMember.Email).Any();
 
-                // Check If Phone Exists
-                var PhoneExists = _memberRepository.GetAll(x => x.Phone == createMember.Phone).Any();
+                //// Check If Phone Exists
+                //var PhoneExists = _memberRepository.GetAll(x => x.Phone == createMember.Phone).Any();
 
                 // If One Of Them Exists.
-                if (EmailExists || PhoneExists)
+                if (IsEmailExists(createMember.Email) || IsPhoneExists(createMember.Phone))
                 {
                     return false;
                 }
@@ -203,11 +203,11 @@ namespace GymManagementBLL.Services.Classes
         {
             try
             {
-                var EmailExists = _memberRepository.GetAll(x=>x.Email == UpdatedMember.Email).Any();
+                //var EmailExists = _memberRepository.GetAll(x=>x.Email == UpdatedMember.Email).Any();
 
-                var PhoneExists = _memberRepository.GetAll(x => x.Phone == UpdatedMember.Phone).Any();
+                //var PhoneExists = _memberRepository.GetAll(x => x.Phone == UpdatedMember.Phone).Any();
 
-                if(EmailExists || PhoneExists) return false;
+                if(IsEmailExists(UpdatedMember.Email) || IsPhoneExists(UpdatedMember.Phone)) return false;
 
                 var Member = _memberRepository.GetById(Id);
                 if(Member == null) return false;
@@ -232,6 +232,23 @@ namespace GymManagementBLL.Services.Classes
         }
 
 
-       
+
+
+        #region Helper Method
+
+        private bool IsEmailExists(string email)
+        {
+            return _memberRepository.GetAll(x=>x.Email == email).Any();
+        }
+
+
+        private bool IsPhoneExists(string phone)
+        {
+            return _memberRepository.GetAll(x => x.Phone == phone).Any();
+        }
+        #endregion
+
+
+
     }
 }
