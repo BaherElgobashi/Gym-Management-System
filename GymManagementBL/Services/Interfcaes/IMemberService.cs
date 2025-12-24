@@ -17,5 +17,9 @@ namespace GymManagementBLL.Services.Interfcaes
 
         // GetMemberDetails.
         MemberViewModel? GetMemberDetails(int MemberId);
+        
+        // Get Member Health Details
+
+        HealthRecordViewModel? GetMemberHealthDetails(int MemberId);
     }
 }
