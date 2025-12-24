@@ -21,7 +21,7 @@ namespace GymManagementBLL.Services.Interfcaes
         // Get Member Health Details.
         HealthRecordViewModel? GetMemberHealthDetails(int MemberId);
 
-        // Get Member To Update.
+        // Get Member To Update show the data only.
         MemberToUpdateViewModel? GetMemberToUpdate(int MemberId);
     }
 }

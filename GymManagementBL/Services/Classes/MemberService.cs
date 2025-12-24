@@ -178,5 +178,24 @@ namespace GymManagementBLL.Services.Classes
 
             return HealthViewModel;
         }
+
+        // This Service to Show The Data Only.
+        public MemberToUpdateViewModel? GetMemberToUpdate(int MemberId)
+        {
+            var Member = _memberRepository.GetById(MemberId);
+            if(Member == null) return null;
+
+            return new MemberToUpdateViewModel()
+            {
+                Name = Member.Name,
+                Photo = Member.Photo,
+                Email = Member.Email,
+                Phone = Member.Phone,
+                BuildingNumber = Member.Address.BuildingNumber,
+                Street = Member.Address.Street,
+                City = Member.Address.City  
+            };
+
+        }
     }
 }

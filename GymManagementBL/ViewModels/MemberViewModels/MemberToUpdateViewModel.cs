@@ -11,7 +11,7 @@ namespace GymManagementBLL.ViewModels.MemberViewModels
     {
         public string Name { get; set; } = null!;
 
-        public string? photo { get; set; }
+        public string? Photo { get; set; }
         ///////////////////////////////////////////////////////////////////////////
 
         [Required(ErrorMessage = "Email is Required.")]
