@@ -1,4 +1,5 @@
 using GymManagementDAL.Contexts;
+using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Classes;
 using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace GymManagementPLL
 
             // Add services to make the dependency Injection for GenericRepository<>.
             builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            builder.Services.AddScoped<IPlanRepository, PlanRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
