@@ -12,7 +12,7 @@ namespace GymManagementBLL.ViewModels.PlanViewModels
         [Required(ErrorMessage ="Plan Name Is Required.")]
         [StringLength(50 , ErrorMessage ="Plan Name must be less than 51 Charactres.")]
         public string PlanName { get; set; } = null!;
-
+         
         ////////////////////////////////////////////////////////////////////////////////
 
         [Required(ErrorMessage ="Description is Required.")]

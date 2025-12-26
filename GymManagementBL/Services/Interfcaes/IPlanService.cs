@@ -15,6 +15,13 @@ namespace GymManagementBLL.Services.Interfcaes
         // Get Details of one plan only by using Id.
         PlanViewModel? GetPlanById(int PlanId);
 
-        //
+        // Get the plan to make updates on it.
+        UpdatePlanViewModel? GetPlanToUpdate(int PlanId);
+
+        // Make Updates to the plan.
+        bool UpdatePlan(int PlanId , UpdatePlanViewModel UpdatedPlan);
+
+        // Make Activation or DeActivation.
+        bool ToggleStatus(int PlanId);
     }
 }
