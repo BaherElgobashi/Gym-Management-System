@@ -1,5 +1,6 @@
 ﻿using GymManagementBLL.Services.Interfcaes;
 using GymManagementBLL.ViewModels.PlanViewModels;
+using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,39 @@ namespace GymManagementBLL.Services.Classes
         }
         public IEnumerable<PlanViewModel> GetAllPlans()
         {
-            throw new NotImplementedException();
+            var Plans = _unitOfWork.GetRepository<Plan>().GetAll();
+            if (Plans is null || !Plans.Any())
+                return [];
+
+            var PlanViewModels = Plans.Select(P=> new PlanViewModel 
+            {
+                Id = P.Id,
+                Name = P.Name,
+                Description = P.Description,
+                DurationDays = P.DurationDays,
+                Price = P.Price,
+                IsActive = P.IsActive,
+
+            });
+            return PlanViewModels;
         }
 
         public PlanViewModel? GetPlanById(int PlanId)
         {
-            throw new NotImplementedException();
+            var Plan = _unitOfWork.GetRepository<Plan>().GetById(PlanId);
+            if(Plan == null) return null;
+
+            var PlanViewModel = new PlanViewModel() 
+            {
+                Id = Plan.Id,
+                Name = Plan.Name,
+                Description = Plan.Description,
+                DurationDays = Plan.DurationDays,
+                Price = Plan.Price,
+                IsActive = Plan.IsActive,
+            
+            };
+            return PlanViewModel;
         }
 
         public UpdatePlanViewModel? GetPlanToUpdate(int PlanId)
