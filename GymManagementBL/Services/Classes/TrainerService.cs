@@ -36,7 +36,21 @@ namespace GymManagementBLL.Services.Classes
             return TrainerViewModels;
         }
 
+        public TrainerViewModel GetTrainerDetails(int TrainerId)
+        {
+            var Trainer = _unitOfWork.GetRepository<Trainer>().GetById(TrainerId);
 
+            if (Trainer == null) return null!;
 
+            var GetTrainerDetailsViewModel = new TrainerViewModel()
+            {
+                Email = Trainer.Email,
+                Phone = Trainer.Phone,
+                DateofBirth = Trainer.DateOfBirth.ToShortDateString(),
+                Address = $"{Trainer.Address.BuildingNumber} - {Trainer.Address.Street} - {Trainer.Address.City}"
+            };
+
+            return GetTrainerDetailsViewModel;
+        }
     }
 }
