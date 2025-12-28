@@ -57,19 +57,88 @@ namespace GymManagementBLL.Services.Classes
 
         public UpdatePlanViewModel? GetPlanToUpdate(int PlanId)
         {
-            throw new NotImplementedException();
+            var Plan = _unitOfWork.GetRepository<Plan>().GetById(PlanId);
+
+            if(Plan == null || Plan.IsActive == false || HasActiveMemberShips(PlanId)) return null;
+
+            var GetMemberToViewModel = new UpdatePlanViewModel() 
+            {
+                PlanName = Plan.Name,
+
+                Description = Plan.Description,
+
+                DurationDays = Plan.DurationDays,
+
+                Price = Plan.Price,
+
+            };
+            return GetMemberToViewModel;
         }
 
        
 
         public bool UpdatePlan(int PlanId, UpdatePlanViewModel UpdatedPlan)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Plan = _unitOfWork.GetRepository<Plan>().GetById(PlanId);
+
+                if (Plan is null || HasActiveMemberShips(PlanId)) return false;
+
+                // First way to update.
+
+                //Plan.Description = UpdatedPlan.Description;
+                //Plan.DurationDays = UpdatedPlan.DurationDays;
+                //Plan.Price = UpdatedPlan.Price;
+                //Plan.UpdatedAt = DateTime.Now;
+
+                // Second Way to update.
+                (Plan.Description, Plan.DurationDays, Plan.Price, Plan.UpdatedAt)
+                    = (UpdatedPlan.Description, UpdatedPlan.DurationDays, UpdatedPlan.Price, DateTime.Now);
+
+                _unitOfWork.GetRepository<Plan>().Update(Plan);
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool ToggleStatus(int PlanId)
         {
-            throw new NotImplementedException();
+            var Repo = _unitOfWork.GetRepository<Plan>();
+
+            var Plan = Repo.GetById(PlanId);
+
+            if (Plan is null || HasActiveMemberShips(PlanId)) return false;
+
+            Plan.IsActive = Plan.IsActive == true ? false : true;
+
+            Plan.UpdatedAt = DateTime.Now;
+
+            try
+            {
+                Repo.Update(Plan);
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
+
+
+        #region Helper Methods
+
+        private bool HasActiveMemberShips(int PlanId) 
+        {
+            var ActiveMemberShips = _unitOfWork.GetRepository<Membership>()
+                .GetAll(x => x.Id == PlanId && x.Status == "Active");
+
+            return ActiveMemberShips.Any();
+
+        }
+        #endregion
     }
 }
