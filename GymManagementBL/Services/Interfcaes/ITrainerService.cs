@@ -11,5 +11,8 @@ namespace GymManagementBLL.Services.Interfcaes
     {
         // Get All Trainers.
         IEnumerable<TrainerViewModel> GetAllTrainers();
+
+        // Get Trainer Details.
+        TrainerViewModel GetTrainerDetails(int TrainerId);
     }
 }

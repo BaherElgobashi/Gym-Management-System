@@ -35,5 +35,8 @@ namespace GymManagementBLL.Services.Classes
             });
             return TrainerViewModels;
         }
+
+
+
     }
 }
