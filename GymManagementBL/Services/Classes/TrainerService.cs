@@ -18,6 +18,7 @@ namespace GymManagementBLL.Services.Classes
         {
             _unitOfWork = unitOfWork;
         }
+
         public IEnumerable<TrainerViewModel> GetAllTrainers()
         {
             var Trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
@@ -52,5 +53,51 @@ namespace GymManagementBLL.Services.Classes
 
             return GetTrainerDetailsViewModel;
         }
+
+
+        public bool CreateTrainer(CreateTrainerViewModel CreateTrainer)
+        {
+            if(IsEmailExists(CreateTrainer.Email) || IsPhoneExists(CreateTrainer.Phone))
+                return false;
+
+            var Trainer = new Trainer()
+            {
+                Name = CreateTrainer.Name,
+                Email = CreateTrainer.Email,
+                Phone = CreateTrainer.Phone,
+                DateOfBirth = CreateTrainer.DateOfBirth,
+                Gender = CreateTrainer.Gender,
+                Address = new Address() 
+                {
+                    BuildingNumber = CreateTrainer.BuildingNumber,
+                    City = CreateTrainer.City,
+                    Street = CreateTrainer.Street,
+                },
+                
+            };
+
+            _unitOfWork.GetRepository<Trainer>().Add(Trainer); // Added Locally.
+
+            return _unitOfWork.SaveChanges() > 0; // Added To Database.
+
+
+            
+        }
+
+
+
+
+        #region Helper Methods
+        private bool IsEmailExists(string Email)
+        {
+            return _unitOfWork.GetRepository<Trainer>().GetAll(x => x.Email == Email).Any();
+        }
+
+        private bool IsPhoneExists(string Phone)
+        {
+            return _unitOfWork.GetRepository<Trainer>().GetAll(x=>x.Phone == Phone).Any();
+        }
+
+        #endregion
     }
 }
