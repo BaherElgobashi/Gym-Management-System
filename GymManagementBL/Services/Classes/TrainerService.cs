@@ -57,28 +57,35 @@ namespace GymManagementBLL.Services.Classes
 
         public bool CreateTrainer(CreateTrainerViewModel CreateTrainer)
         {
-            if(IsEmailExists(CreateTrainer.Email) || IsPhoneExists(CreateTrainer.Phone))
-                return false;
-
-            var Trainer = new Trainer()
+            try
             {
-                Name = CreateTrainer.Name,
-                Email = CreateTrainer.Email,
-                Phone = CreateTrainer.Phone,
-                DateOfBirth = CreateTrainer.DateOfBirth,
-                Gender = CreateTrainer.Gender,
-                Address = new Address() 
+                if (IsEmailExists(CreateTrainer.Email) || IsPhoneExists(CreateTrainer.Phone))
+                    return false;
+
+                var Trainer = new Trainer()
                 {
-                    BuildingNumber = CreateTrainer.BuildingNumber,
-                    City = CreateTrainer.City,
-                    Street = CreateTrainer.Street,
-                },
-                
-            };
+                    Name = CreateTrainer.Name,
+                    Email = CreateTrainer.Email,
+                    Phone = CreateTrainer.Phone,
+                    DateOfBirth = CreateTrainer.DateOfBirth,
+                    Gender = CreateTrainer.Gender,
+                    Address = new Address()
+                    {
+                        BuildingNumber = CreateTrainer.BuildingNumber,
+                        City = CreateTrainer.City,
+                        Street = CreateTrainer.Street,
+                    },
 
-            _unitOfWork.GetRepository<Trainer>().Add(Trainer); // Added Locally.
+                };
 
-            return _unitOfWork.SaveChanges() > 0; // Added To Database.
+                _unitOfWork.GetRepository<Trainer>().Add(Trainer); // Added Locally.
+
+                return _unitOfWork.SaveChanges() > 0; // Added To Database.
+            }
+            catch
+            {
+                return false;
+            }
 
 
             
