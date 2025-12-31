@@ -13,9 +13,12 @@ namespace GymManagementBLL.Services.Interfcaes
         IEnumerable<TrainerViewModel> GetAllTrainers();
 
         // Get Trainer Details.
-        TrainerViewModel GetTrainerDetails(int TrainerId);
+        TrainerViewModel? GetTrainerDetails(int TrainerId);
 
         // Create Trainer.
         bool CreateTrainer(CreateTrainerViewModel CreateTrainer);
+
+        // Get Trainer to update see the Details only.
+
     }
 }
