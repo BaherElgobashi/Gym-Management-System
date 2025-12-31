@@ -14,5 +14,8 @@ namespace GymManagementBLL.Services.Interfcaes
 
         // Get Trainer Details.
         TrainerViewModel GetTrainerDetails(int TrainerId);
+
+        // Create Trainer.
+        bool CreateTrainer(CreateTrainerViewModel CreateTrainer);
     }
 }
