@@ -55,6 +55,7 @@ namespace GymManagementBLL.ViewModels.TrainerViewModels
         /////////////////////////////////////////////////////////////////////////
 
         [Required(ErrorMessage = "Choose one of Specialities is Required.")]
+        [EnumDataType(typeof(Specialties))]
         public Specialties Specialties { get; set; }
 
 

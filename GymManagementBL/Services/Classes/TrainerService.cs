@@ -116,32 +116,53 @@ namespace GymManagementBLL.Services.Classes
 
         public bool UpdateTrainerDetails(int Id, TrainerToUpdateViewModel UpdateTrainer)
         {
-            if(IsEmailExists(UpdateTrainer.Email) || IsPhoneExists(UpdateTrainer.Phone))
+            try
             {
-                return false;
+                if (IsEmailExists(UpdateTrainer.Email) || IsPhoneExists(UpdateTrainer.Phone))
+                {
+                    return false;
+                }
+
+                var OldMember = _unitOfWork.GetRepository<Trainer>().GetById(Id);
+
+                if (OldMember == null) return false;
+
+                OldMember.Name = UpdateTrainer.Name;
+                OldMember.Email = UpdateTrainer.Email;
+                OldMember.Phone = UpdateTrainer.Phone;
+                OldMember.Address.BuildingNumber = UpdateTrainer.BuildingNumber;
+                OldMember.Address.Street = UpdateTrainer.Street;
+                OldMember.Address.City = UpdateTrainer.City;
+                OldMember.Specialties = UpdateTrainer.Specialties;
+                OldMember.UpdatedAt = DateTime.Now;
+
+                _unitOfWork.GetRepository<Trainer>().Update(OldMember); // Updated Locally.
+
+                return _unitOfWork.SaveChanges() > 0; // Updated to Database.
             }
-
-            var OldMember = _unitOfWork.GetRepository<Trainer>().GetById(Id);
-
-            if (OldMember == null) return false;
-
-            OldMember.Name = UpdateTrainer.Name;
-            OldMember.Email = UpdateTrainer.Email;
-            OldMember.Phone = UpdateTrainer.Phone;
-            OldMember.Address.BuildingNumber = UpdateTrainer.BuildingNumber;
-            OldMember.Address.Street = UpdateTrainer.Street;
-            OldMember.Address.City = UpdateTrainer.City;
-            OldMember.Specialties = UpdateTrainer.Specialties;
-            OldMember.UpdatedAt = DateTime.Now;
-
-            _unitOfWork.GetRepository<Trainer>().Update(OldMember); // Updated Locally.
-
-            return _unitOfWork.SaveChanges() > 0; // Updated to Database.
+            catch
+            {
+                return false; 
+            }
 
 
         }
 
 
+        public bool RemoveTrainer(int TrainerId)
+        {
+            var Member = _unitOfWork.GetRepository<Trainer>().GetById(TrainerId);
+            if (Member == null) return false;
+
+            var HasTrainerSessions = _unitOfWork.GetRepository<Session>()
+                .GetAll(x=>x.TrainerId == TrainerId && x.StartDate > DateTime.Now).Any();
+            if(Member == null || HasTrainerSessions) return false;
+
+            _unitOfWork.GetRepository<Trainer>().Delete(Member);
+
+            return _unitOfWork.SaveChanges() > 0;
+
+        }
 
 
 
@@ -161,6 +182,8 @@ namespace GymManagementBLL.Services.Classes
         }
 
         
+
+
 
 
 
