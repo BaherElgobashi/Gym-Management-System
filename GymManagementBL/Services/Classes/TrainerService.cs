@@ -114,6 +114,34 @@ namespace GymManagementBLL.Services.Classes
         }
 
 
+        public bool UpdateTrainerDetails(int Id, TrainerToUpdateViewModel UpdateTrainer)
+        {
+            if(IsEmailExists(UpdateTrainer.Email) || IsPhoneExists(UpdateTrainer.Phone))
+            {
+                return false;
+            }
+
+            var OldMember = _unitOfWork.GetRepository<Trainer>().GetById(Id);
+
+            if (OldMember == null) return false;
+
+            OldMember.Name = UpdateTrainer.Name;
+            OldMember.Email = UpdateTrainer.Email;
+            OldMember.Phone = UpdateTrainer.Phone;
+            OldMember.Address.BuildingNumber = UpdateTrainer.BuildingNumber;
+            OldMember.Address.Street = UpdateTrainer.Street;
+            OldMember.Address.City = UpdateTrainer.City;
+            OldMember.Specialties = UpdateTrainer.Specialties;
+            OldMember.UpdatedAt = DateTime.Now;
+
+            _unitOfWork.GetRepository<Trainer>().Update(OldMember); // Updated Locally.
+
+            return _unitOfWork.SaveChanges() > 0; // Updated to Database.
+
+
+        }
+
+
 
 
 
@@ -133,6 +161,8 @@ namespace GymManagementBLL.Services.Classes
         }
 
         
+
+
 
         #endregion
     }
