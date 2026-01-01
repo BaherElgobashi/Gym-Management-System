@@ -93,6 +93,33 @@ namespace GymManagementBLL.Services.Classes
 
 
 
+        public TrainerToUpdateViewModel? GetTrainerToUpdate(int TrainerId)
+        {
+            var UpdateTrainer = _unitOfWork.GetRepository<Trainer>().GetById(TrainerId);
+
+            if (UpdateTrainer == null) return null;
+
+            return new TrainerToUpdateViewModel()
+            {
+                 Name = UpdateTrainer.Name,
+                 Email = UpdateTrainer.Email,
+                 Phone = UpdateTrainer.Phone,
+                 BuildingNumber = UpdateTrainer.Address.BuildingNumber,
+                 Street = UpdateTrainer.Address.Street,
+                 City = UpdateTrainer.Address.City,
+
+            };
+
+
+        }
+
+
+
+
+
+
+
+
 
         #region Helper Methods
         private bool IsEmailExists(string Email)
@@ -104,6 +131,8 @@ namespace GymManagementBLL.Services.Classes
         {
             return _unitOfWork.GetRepository<Trainer>().GetAll(x=>x.Phone == Phone).Any();
         }
+
+        
 
         #endregion
     }
