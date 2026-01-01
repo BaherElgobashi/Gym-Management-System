@@ -21,5 +21,8 @@ namespace GymManagementBLL.Services.Interfcaes
         // Get Trainer to update see the Details only.
         TrainerToUpdateViewModel? GetTrainerToUpdate(int TrainerId);
 
+        // Update the Trainer Data.
+        bool UpdateTrainerDetails(int Id , TrainerToUpdateViewModel UpdateTrainer);
+
     }
 }
