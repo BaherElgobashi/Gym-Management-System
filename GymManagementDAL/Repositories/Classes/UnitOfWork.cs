@@ -1,6 +1,7 @@
 ﻿using GymManagementDAL.Contexts;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,13 @@ namespace GymManagementDAL.Repositories.Classes
     {
         private readonly Dictionary<Type, object> _repositories = new();
         private readonly GymDbContext _dbContext;
-        public UnitOfWork(GymDbContext dbContext)
+        public UnitOfWork(GymDbContext dbContext , ISessionRepository sessionRepository)
         {
             _dbContext = dbContext;
+            SessionRepository = sessionRepository;
         }
 
-        public SessionRepository SessionRepository => throw new NotImplementedException();
+        public ISessionRepository SessionRepository { get; }
 
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new()
         {
