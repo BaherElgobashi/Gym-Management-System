@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Interfaces
 {
-    internal interface ISessionRepository : IGenericRepository<Session>
+    public interface ISessionRepository : IGenericRepository<Session>
     {
         #region Inherited These Signatures from Genrice Repository
         //// GetAll.

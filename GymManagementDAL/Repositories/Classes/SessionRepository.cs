@@ -1,6 +1,7 @@
 ﻿using GymManagementDAL.Contexts;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,44 +10,33 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-    internal class SessionRepository : ISessionRepository
+    public class SessionRepository : GenericRepository<Session>, ISessionRepository
     {
-        private readonly GymDbContext _dbContext;
-        public SessionRepository(GymDbContext dbContext)
+        private readonly GymDbContext _dbcontext;
+
+        public SessionRepository(GymDbContext dbcontext):base(dbcontext)
         {
-            _dbContext = dbContext;
-        }
-        public IEnumerable<Session> GetAll()
-        {
-            var sessions = _dbContext.Sessions.ToList();
-            return sessions;
+            _dbcontext = dbcontext;
         }
 
-        public Session GetById(int Id)
-        {
-            var session = _dbContext.Sessions.Find(Id);
-            return session;
-        }
-        public int Add(Session session)
-        {
-            _dbContext.Sessions.Add(session);
-            return _dbContext.SaveChanges();
-        }
 
-        public int Update(Session session)
+
+
+        public IEnumerable<Session> GetAllSessionsWithTrainerAndCategory()
         {
-            _dbContext.Sessions.Update(session);
-            return _dbContext.SaveChanges();
+            var SessionsWithTrainerAndCategory = _dbcontext.Sessions
+                                                .Include(x => x.SessionTrainer)
+                                                .Include(x => x.SessionCategory)
+                                                .ToList(); 
+           
+            return SessionsWithTrainerAndCategory;
         }
-
-        public int Delete(int Id)
+        public int GetCountOfBookedSlots(int SessionId)
         {
-            var session = _dbContext.Sessions.Find(Id);
-
-            if (session is null) return 0;
-            _dbContext.Sessions.Remove(session);
-
-            return _dbContext.SaveChanges();
+            return _dbcontext.MemberSessions.Count(x=>x.SessionId == SessionId);
         }
+        
+
+
     }
 }
