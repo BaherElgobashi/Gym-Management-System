@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Data.DataSeed
 {
-    internal static class GymDbContextSeeding
+    public static class GymDbContextSeeding
     {
         public static bool SeedData(GymDbContext dbContext)
         {

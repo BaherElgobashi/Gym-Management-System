@@ -3,6 +3,7 @@ using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Classes;
 using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using GymManagementDAL.Data.DataSeed;
 
 namespace GymManagementPLL
 {
@@ -32,6 +33,28 @@ namespace GymManagementPLL
 
             builder.Services.AddScoped<IUnitOfWork , UnitOfWork>();
             var app = builder.Build();
+
+            // DataSeeding.
+
+            #region Data Seeding - Migrate Database.
+
+            var Scope = app.Services.CreateScope();
+
+            var dbContext = Scope.ServiceProvider.GetRequiredService<GymDbContext>();
+
+            var PendingMigrations = dbContext.Database.GetMigrations();
+
+            if (PendingMigrations?.Any() ?? false) 
+            {
+                dbContext.Database.Migrate();
+            }
+
+
+            GymDbContextSeeding.SeedData(dbContext);
+
+            #endregion
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
