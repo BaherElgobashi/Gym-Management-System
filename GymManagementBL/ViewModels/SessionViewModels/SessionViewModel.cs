@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.ViewModels.SessionViewModels
 {
-    internal class SessionViewModel
+    public class SessionViewModel
     {
         public int Id { get; set; }
         public string CategoryName { get; set; } = null!;
