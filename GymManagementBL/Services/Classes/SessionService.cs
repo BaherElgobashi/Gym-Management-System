@@ -144,6 +144,9 @@ namespace GymManagementBLL.Services.Classes
 
             if(!IsSessionAvaliableForUpdating(Session!)) return null;
 
+            return _mapper.Map<Session , UpdateSessionViewModel>(Session!);
+
+
 
 
             
@@ -152,7 +155,26 @@ namespace GymManagementBLL.Services.Classes
 
         public bool UpdateSession(UpdateSessionViewModel UpdatedSession, int SessionId)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var Session = _unitOfWork.SessionRepository.GetById(SessionId);
+
+                if(!IsSessionAvaliableForUpdating(Session!)) return false;
+
+                if(!IsTrainerExists(UpdatedSession.TrainerId)) return false;
+
+                if(!IsDateTimeValid(UpdatedSession.StartDate , UpdatedSession.EndDate)) return false;
+
+
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Update Session Failed : {ex}");
+
+                return false;
+            }
         }
 
 

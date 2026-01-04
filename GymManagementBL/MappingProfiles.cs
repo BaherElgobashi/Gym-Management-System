@@ -31,6 +31,8 @@ namespace GymManagementBLL
             CreateMap<SessionViewModel, Session>();
 
             CreateMap<Session , UpdateSessionViewModel>();
+
+            CreateMap<UpdateSessionViewModel,Session>();
         }
     }
 }
