@@ -47,7 +47,7 @@ namespace GymManagementBLL.Services.Classes
 
         public SessionViewModel? GetSessionById(int SessionId)
         {
-            var Session = _unitOfWork.SessionRepository.GetById(SessionId);
+            var Session = _unitOfWork.SessionRepository.GetSessionWithTrainerAndCategory(SessionId);
             if(Session == null) return null;
             return new SessionViewModel()
             {

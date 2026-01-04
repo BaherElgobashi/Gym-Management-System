@@ -16,6 +16,9 @@ namespace GymManagementDAL.Data.Configuration
             builder.ToTable("Members")
                     .HasKey(x => x.Id);
 
+            builder.Property(x => x.Height)
+                   .HasPrecision(5, 2);
+
             builder.HasOne<Member>()
                     .WithOne(x => x.HealthRecord)
                     .HasForeignKey<HealthRecord>(x => x.Id);
