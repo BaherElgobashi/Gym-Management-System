@@ -188,6 +188,12 @@ namespace GymManagementBLL.Services.Classes
         }
 
 
+        public bool RemoveSession(int SessionId)
+        {
+            
+        }
+
+
 
 
 
@@ -234,6 +240,8 @@ namespace GymManagementBLL.Services.Classes
         }
 
         
+
+
 
         #endregion
     }
