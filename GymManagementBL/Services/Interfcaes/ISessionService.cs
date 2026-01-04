@@ -11,5 +11,8 @@ namespace GymManagementBLL.Services.Interfcaes
     {
         // Get All Sessions.
         IEnumerable<SessionViewModel> GetAllSessions();
+
+        // Get Session By Id.
+        SessionViewModel? GetSessionById(int SessionId);
     }
 }

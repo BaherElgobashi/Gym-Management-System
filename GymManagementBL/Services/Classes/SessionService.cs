@@ -26,12 +26,18 @@ namespace GymManagementBLL.Services.Classes
             return Sessions.Select(S => new SessionViewModel
             {
                 Id = S.Id,
+
                 Description = S.Description,
+
                 StartDate = S.StartDate,
+
                 EndDate = S.EndDate,
+
                 Capacity = S.Capacity,
                 TrainerName = S.SessionTrainer.Name,
+
                 CategoryName = S.SessionCategory.CategoryName,
+
                 AvaliableSlots = S.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(S.Id),
 
             });
