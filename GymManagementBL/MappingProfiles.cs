@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GymManagementBLL.ViewModels.SessionViewModels;
 using GymManagementDAL.Entities;
+using GymManagementSystemBLL.ViewModels.SessionViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace GymManagementBLL
                 });
 
             CreateMap<SessionViewModel, Session>();
+
+            CreateMap<Session , UpdateSessionViewModel>();
         }
     }
 }

@@ -138,6 +138,33 @@ namespace GymManagementBLL.Services.Classes
         }
 
 
+        public UpdateSessionViewModel? GetSessionToUpdate(int SessionId)
+        {
+            var Session = _unitOfWork.GetRepository<Session>().GetById(SessionId);
+
+            if(!IsSessionAvaliableForUpdating(Session!)) return null;
+
+
+
+            
+
+        }
+
+        public bool UpdateSession(UpdateSessionViewModel UpdatedSession, int SessionId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
         #region Helper Methods.
@@ -155,6 +182,26 @@ namespace GymManagementBLL.Services.Classes
         {
             return StartDate < EndDate;
         }
+
+        private bool IsSessionAvaliableForUpdating(Session session)
+        {
+            // If Session Completed - No Updates Avaliable.
+            if(session.EndDate < DateTime.Now) return false;
+
+            // If Session Completed - No Updates Avaliable.
+            if (session.StartDate <= DateTime.Now) return false;
+
+
+            // If Session Completed - No Updates Avaliable.
+            var HasActiveBooking = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id) > 0;
+            if(HasActiveBooking) return false;
+
+
+            return true;
+
+        }
+
+        
 
         #endregion
     }
