@@ -160,11 +160,21 @@ namespace GymManagementBLL.Services.Classes
 
                 var Session = _unitOfWork.SessionRepository.GetById(SessionId);
 
+                if(Session == null) return false;
+
                 if(!IsSessionAvaliableForUpdating(Session!)) return false;
 
                 if(!IsTrainerExists(UpdatedSession.TrainerId)) return false;
 
                 if(!IsDateTimeValid(UpdatedSession.StartDate , UpdatedSession.EndDate)) return false;
+
+                _mapper.Map(UpdatedSession, Session);
+
+                Session.UpdatedAt = DateTime.Now;
+
+                _unitOfWork.SessionRepository.Update(Session); // Updated Locally.
+
+                return _unitOfWork.SaveChanges() > 0; // Updated To Databse.
 
 
 
