@@ -119,6 +119,13 @@ namespace GymManagementBLL.Services.Classes
 
             if(!IsDateTimeValid(CreatedSession.StartDate , CreatedSession.EndDate)) return false;
 
+            if (CreatedSession.Capacity > 25 || CreatedSession.Capacity < 0) return false;
+
+            var SessionEntity = _mapper.Map<Session>(CreatedSession);
+
+            _unitOfWork.GetRepository<Session>().Add(SessionEntity); // Add Locally.
+
+            return _unitOfWork.SaveChanges() > 0; // Added To DataBase.
 
         }
 
