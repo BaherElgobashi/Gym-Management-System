@@ -107,25 +107,33 @@ namespace GymManagementBLL.Services.Classes
 
         public bool CreateSession(CreateSessionViewModel CreatedSession)
         {
-            // Check if Trainer Exists.
+            try
+            {
+                // Check if Trainer Exists.
 
-            if(!IsTrainerExists(CreatedSession.TrainerId)) return false;
+                if (!IsTrainerExists(CreatedSession.TrainerId)) return false;
 
-            // Check if Category Exists.
+                // Check if Category Exists.
 
-            if (!IsCategoryExists(CreatedSession.CategoryId)) return false;
+                if (!IsCategoryExists(CreatedSession.CategoryId)) return false;
 
-            // Check if StartDate is before EndDate. 
+                // Check if StartDate is before EndDate. 
 
-            if(!IsDateTimeValid(CreatedSession.StartDate , CreatedSession.EndDate)) return false;
+                if (!IsDateTimeValid(CreatedSession.StartDate, CreatedSession.EndDate)) return false;
 
-            if (CreatedSession.Capacity > 25 || CreatedSession.Capacity < 0) return false;
+                if (CreatedSession.Capacity > 25 || CreatedSession.Capacity < 0) return false;
 
-            var SessionEntity = _mapper.Map<Session>(CreatedSession);
+                var SessionEntity = _mapper.Map<Session>(CreatedSession);
 
-            _unitOfWork.GetRepository<Session>().Add(SessionEntity); // Add Locally.
+                _unitOfWork.GetRepository<Session>().Add(SessionEntity); // Add Locally.
 
-            return _unitOfWork.SaveChanges() > 0; // Added To DataBase.
+                return _unitOfWork.SaveChanges() > 0; // Added To DataBase.
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"Create Session Failed : {ex}");
+                return false;
+            }
 
         }
 
