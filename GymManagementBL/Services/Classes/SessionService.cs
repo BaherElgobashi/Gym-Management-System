@@ -190,7 +190,24 @@ namespace GymManagementBLL.Services.Classes
 
         public bool RemoveSession(int SessionId)
         {
-            
+            try
+            {
+                var Session = _unitOfWork.SessionRepository.GetById(SessionId);
+                if(Session == null) return false;
+
+                if(!IsSessionAvaliableForRemoving(Session)) return false;
+
+                _unitOfWork.SessionRepository.Delete(Session); // Deleted Locally.
+
+                return _unitOfWork.SaveChanges() > 0; // Deleted From Database.
+
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"Delete Session Failed : {ex}");
+
+                return false;
+            }
         }
 
 
@@ -226,11 +243,11 @@ namespace GymManagementBLL.Services.Classes
             // If Session Completed - No Updates Avaliable.
             if(session.EndDate < DateTime.Now) return false;
 
-            // If Session Completed - No Updates Avaliable.
+            // If Session Started - No Updates Avaliable.
             if (session.StartDate <= DateTime.Now) return false;
 
 
-            // If Session Completed - No Updates Avaliable.
+            // If Session HasActiveBooking - No Updates Avaliable.
             var HasActiveBooking = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id) > 0;
             if(HasActiveBooking) return false;
 
@@ -239,7 +256,28 @@ namespace GymManagementBLL.Services.Classes
 
         }
 
-        
+
+
+        private bool IsSessionAvaliableForRemoving(Session session)
+        {
+
+            // If Session Started - No Delete Avaliable.
+            if (session.StartDate <= DateTime.Now && session.EndDate > DateTime.Now) return false;
+
+            // If Session Upcomming - No Delete Avaliable.
+            if (session.StartDate > DateTime.Now) return false;
+
+
+            // If Session HasActiveBooking - No Delete Avaliable.
+            var HasActiveBooking = _unitOfWork.SessionRepository.GetCountOfBookedSlots(session.Id) > 0;
+            if (HasActiveBooking) return false;
+
+
+            return true;
+
+        }
+
+
 
 
 
