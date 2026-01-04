@@ -1,5 +1,7 @@
-﻿using GymManagementBLL.Services.Interfcaes;
+﻿using AutoMapper;
+using GymManagementBLL.Services.Interfcaes;
 using GymManagementBLL.ViewModels.SessionViewModels;
+using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,12 @@ namespace GymManagementBLL.Services.Classes
     internal class SessionService : ISessionService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public SessionService(IUnitOfWork unitOfWork)
+        public SessionService(IUnitOfWork unitOfWork , IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public IEnumerable<SessionViewModel> GetAllSessions()
         {
@@ -23,25 +27,44 @@ namespace GymManagementBLL.Services.Classes
 
             if (Sessions == null) return [];
 
-            return Sessions.Select(S => new SessionViewModel
+            #region Manual Mapping.
+            //return Sessions.Select(S => new SessionViewModel
+            //{
+            //    Id = S.Id,
+
+            //    Description = S.Description,
+
+            //    StartDate = S.StartDate,
+
+            //    EndDate = S.EndDate,
+
+            //    Capacity = S.Capacity,
+
+            //    TrainerName = S.SessionTrainer.Name,
+
+            //    CategoryName = S.SessionCategory.CategoryName,
+
+            //    AvaliableSlots = S.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(S.Id),
+
+            //}); 
+            #endregion
+
+            #region Using AutoMapper in Mapping.
+
+
+            // Using AutoMapper in Mapping
+
+            var MappedSessions = _mapper.Map<IEnumerable<Session>, IEnumerable<SessionViewModel>>(Sessions);
+
+            foreach (var Session in MappedSessions)
             {
-                Id = S.Id,
+                Session.AvaliableSlots = Session.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(Session.Id);
 
-                Description = S.Description,
+            } 
+            #endregion
 
-                StartDate = S.StartDate,
+            return MappedSessions;
 
-                EndDate = S.EndDate,
-
-                Capacity = S.Capacity,
-
-                TrainerName = S.SessionTrainer.Name,
-
-                CategoryName = S.SessionCategory.CategoryName,
-
-                AvaliableSlots = S.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(S.Id),
-
-            });
 
         }
 
