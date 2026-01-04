@@ -34,6 +34,7 @@ namespace GymManagementBLL.Services.Classes
                 EndDate = S.EndDate,
 
                 Capacity = S.Capacity,
+
                 TrainerName = S.SessionTrainer.Name,
 
                 CategoryName = S.SessionCategory.CategoryName,
@@ -42,6 +43,23 @@ namespace GymManagementBLL.Services.Classes
 
             });
 
+        }
+
+        public SessionViewModel? GetSessionById(int SessionId)
+        {
+            var Session = _unitOfWork.SessionRepository.GetById(SessionId);
+            if(Session == null) return null;
+            return new SessionViewModel()
+            {
+                Id = Session.Id,
+                Description = Session.Description,
+                StartDate = Session.StartDate,
+                EndDate = Session.EndDate,
+                Capacity = Session.Capacity,
+                CategoryName = Session.SessionCategory.CategoryName,
+                TrainerName = Session.SessionTrainer.Name,
+                AvaliableSlots = Session.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlots(SessionId)
+            };
         }
     }
 }
