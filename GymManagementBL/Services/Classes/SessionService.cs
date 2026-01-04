@@ -3,6 +3,7 @@ using GymManagementBLL.Services.Interfcaes;
 using GymManagementBLL.ViewModels.SessionViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
+using GymManagementSystemBLL.ViewModels.SessionViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,9 @@ namespace GymManagementBLL.Services.Classes
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        
+
         public IEnumerable<SessionViewModel> GetAllSessions()
         {
             var Sessions = _unitOfWork.SessionRepository.GetAllSessionsWithTrainerAndCategory();
@@ -98,5 +102,45 @@ namespace GymManagementBLL.Services.Classes
 
             return MappedSession;
         }
+
+
+
+        public bool CreateSession(CreateSessionViewModel CreatedSession)
+        {
+            // Check if Trainer Exists.
+
+            if(!IsTrainerExists(CreatedSession.TrainerId)) return false;
+
+            // Check if Category Exists.
+
+            if (!IsCategoryExists(CreatedSession.CategoryId)) return false;
+
+            // Check if StartDate is before EndDate. 
+
+            if(!IsDateTimeValid(CreatedSession.StartDate , CreatedSession.EndDate)) return false;
+
+
+        }
+
+
+
+
+        #region Helper Methods.
+        private bool IsTrainerExists(int TrainerId)
+        {
+            return _unitOfWork.GetRepository<Trainer>().GetById(TrainerId) is not null;
+        }
+
+        private bool IsCategoryExists(int CategoryId)
+        {
+            return _unitOfWork.GetRepository<Category>().GetById(CategoryId) is not null;
+        }
+
+        private bool IsDateTimeValid(DateTime StartDate , DateTime EndDate)
+        {
+            return StartDate < EndDate;
+        }
+
+        #endregion
     }
 }

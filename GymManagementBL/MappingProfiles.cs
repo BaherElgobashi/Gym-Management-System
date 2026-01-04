@@ -26,6 +26,8 @@ namespace GymManagementBLL
                 {
                     Options.Ignore();
                 });
+
+            CreateMap<SessionViewModel, Session>();
         }
     }
 }
