@@ -45,11 +45,11 @@ namespace GymManagementPLL
 
             #region Data Seeding - Migrate Database.
 
-            var Scope = app.Services.CreateScope();
+            using var Scope = app.Services.CreateScope();
 
             var dbContext = Scope.ServiceProvider.GetRequiredService<GymDbContext>();
 
-            var PendingMigrations = dbContext.Database.GetMigrations();
+            var PendingMigrations = dbContext.Database.GetPendingMigrations();
 
             if (PendingMigrations?.Any() ?? false) 
             {
@@ -58,6 +58,13 @@ namespace GymManagementPLL
 
 
             GymDbContextSeeding.SeedData(dbContext);
+
+
+            //var PendingMigrations = await dbContext.Database.GetPendingMigrationsAsync();
+            //if (PendingMigrations?.Any() ?? false)
+            //    await dbContext.Database.MigrateAsync();
+
+            //await GymContextSeeding.SeedDateAsync(dbContext);
 
             #endregion
 
