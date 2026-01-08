@@ -15,7 +15,9 @@ namespace GymManagementPL.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var Data = _analyticsService.GetAnalyticsData();
+
+            return View(Data);
         }
 
         
