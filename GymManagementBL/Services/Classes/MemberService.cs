@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    internal class MemberService : IMemberService
+    public class MemberService : IMemberService
     {
 
 
@@ -156,7 +156,7 @@ namespace GymManagementBLL.Services.Classes
                 Email = Member.Email,
                 Phone = Member.Phone,
                 Gender = Member.Gender.ToString(),
-                DateOfBirth = Member.DateOfBirth.ToShortDateString(),
+                DateOfBirth = Member.DateOfBirth,
                 Address = $"{Member.Address.BuildingNumber} - {Member.Address.Street} - {Member.Address.City}",
                 Photo = Member.Photo,
             };

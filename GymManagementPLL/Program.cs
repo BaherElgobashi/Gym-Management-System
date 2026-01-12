@@ -43,6 +43,8 @@ namespace GymManagementPLL
 
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
+           builder.Services.AddScoped<IMemberService, MemberService>();
+
 
             var app = builder.Build();
 
