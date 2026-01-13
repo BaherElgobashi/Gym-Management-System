@@ -18,8 +18,4 @@
     <ProjectReference Include="..\GymManagementBL\GymManagementBLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Member\" />
-  </ItemGroup>
-
 </Project>
