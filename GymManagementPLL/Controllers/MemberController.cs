@@ -11,10 +11,32 @@ namespace GymManagementPL.Controllers
         {
             _memberService = memberService;
         }
+
+        #region Get All Members.
+
+        // Get All Members
         public IActionResult Index()
         {
             var Members = _memberService.GetAllMembers();
             return View(Members);
         }
+        #endregion
+
+        #region Get Member Details.
+
+        public IActionResult MemberDetails(int id)
+        {
+            if (id <= 0)
+                return RedirectToAction(nameof(Index));
+
+            var Member = _memberService.GetMemberDetails(id);
+            if (Member == null)
+                return RedirectToAction(nameof(Index));
+
+            return View(Member);
+
+        }
+
+        #endregion
     }
 }
