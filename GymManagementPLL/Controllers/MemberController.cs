@@ -1,5 +1,6 @@
 ﻿using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.Interfcaes;
+using GymManagementBLL.ViewModels.MemberViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
@@ -77,6 +78,17 @@ namespace GymManagementPL.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateMember(CreateMemberViewModel CreatedMember)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("Data Invalid.","Check Data and Missing Fields.");
+                return View(nameof(Create), CreatedMember);
+            }
         }
 
         #endregion
