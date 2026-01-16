@@ -19,6 +19,9 @@ namespace GymManagementDAL.Data.Configuration
             builder.Property(x => x.Height)
                    .HasPrecision(5, 2);
 
+            builder.Property(x => x.BloodType)
+                   .HasColumnName("BloodType");
+
             builder.HasOne<Member>()
                     .WithOne(x => x.HealthRecord)
                     .HasForeignKey<HealthRecord>(x => x.Id);
