@@ -38,5 +38,26 @@ namespace GymManagementPL.Controllers
         }
 
         #endregion
+
+
+
+        #region Health Record Details.
+
+        public IActionResult HealthRecordDetails(int id)
+        {
+            if (id <= 0)
+                return RedirectToAction(nameof(Index));
+
+            var HealthRecordDetails = _memberService.GetMemberHealthDetails(id);
+            if(HealthRecordDetails is null)
+                return RedirectToAction(nameof(Index));
+
+            return View(HealthRecordDetails);
+        }
+
+
+        #endregion
+
+
     }
 }
