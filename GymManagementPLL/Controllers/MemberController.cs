@@ -89,6 +89,21 @@ namespace GymManagementPL.Controllers
                 ModelState.AddModelError("DataInvalid.","Check Data and Missing Fields.");
                 return View(nameof(Create), CreatedMember);
             }
+
+            bool Result = _memberService.CreateMember(CreatedMember);
+
+            if (Result)
+            {
+                TempData["SuccessMessage"] = "Member Created Successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Member Failed To Create , Check Phone and Email.";
+            }
+
+            return RedirectToAction(nameof(Index));
+        
+
         }
 
         #endregion
