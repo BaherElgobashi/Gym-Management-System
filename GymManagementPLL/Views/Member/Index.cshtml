@@ -11,13 +11,16 @@
                 <i class="bi bi-check-circle-fill me-2"></i>
                 Member Created Successfully
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-
-            <div id="Alert" class="alert alert-danger alert-dismissible fade show">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                Member Failed To Create
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div> *@
+
+@if(TempData["ErrorMessage"] is not null)
+{
+    <div id="Alert" class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
 
             <div class="container">
                 <header class="d-flex justify-content-end mt-5 mb-4 align-items-center">
