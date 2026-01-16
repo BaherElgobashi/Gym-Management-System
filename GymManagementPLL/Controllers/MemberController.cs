@@ -72,5 +72,15 @@ namespace GymManagementPL.Controllers
         #endregion
 
 
+        #region Create Member.
+         
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        #endregion
+
+
     }
 }
