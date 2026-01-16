@@ -11,7 +11,7 @@ namespace GymManagementPL.Controllers
         {
             _memberService = memberService;
         }
-
+         
         #region Get All Members.
 
         // Get All Members
@@ -27,11 +27,18 @@ namespace GymManagementPL.Controllers
         public IActionResult MemberDetails(int id)
         {
             if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Id must be 0 or Negative Number.";
                 return RedirectToAction(nameof(Index));
+            }
+               
 
             var Member = _memberService.GetMemberDetails(id);
             if (Member == null)
+            {
+                TempData["ErrorMessage"] = "Member is not found.";
                 return RedirectToAction(nameof(Index));
+            }
 
             return View(Member);
 
@@ -46,11 +53,17 @@ namespace GymManagementPL.Controllers
         public IActionResult HealthRecordDetails(int id)
         {
             if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Id must be 0 or Negative Number.";
                 return RedirectToAction(nameof(Index));
+            }
 
             var HealthRecordDetails = _memberService.GetMemberHealthDetails(id);
             if(HealthRecordDetails is null)
+            {
+                TempData["ErrorMessage"] = "Health Record is not found.";
                 return RedirectToAction(nameof(Index));
+            }
 
             return View(HealthRecordDetails);
         }
