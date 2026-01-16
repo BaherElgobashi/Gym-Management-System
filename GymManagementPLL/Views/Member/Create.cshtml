@@ -1,9 +1,14 @@
 ﻿@using GymManagementDAL.Entities.Enums
 
 @model CreateMemberViewModel
+
+
+
  <header class="mb-4">
           <h3 class="text-primary-color">Add Member</h3>
-        </header>
+</header>
+
+@Html.ValidationMessage("DataInvalid", new{@class = "Text-danger"});
         <form asp-action="CreateMember" method="post">
           <!-- Step navigation -->
           <ul class="nav nav-tabs mb-4" id="addMemberTabs" role="tablist">

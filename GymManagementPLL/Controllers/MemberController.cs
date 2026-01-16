@@ -86,7 +86,7 @@ namespace GymManagementPL.Controllers
 
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("Data Invalid.","Check Data and Missing Fields.");
+                ModelState.AddModelError("DataInvalid.","Check Data and Missing Fields.");
                 return View(nameof(Create), CreatedMember);
             }
         }
