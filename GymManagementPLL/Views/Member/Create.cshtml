@@ -8,7 +8,7 @@
           <h3 class="text-primary-color">Add Member</h3>
 </header>
 
-@Html.ValidationMessage("DataInvalid", new{@class = "Text-danger"});
+@Html.ValidationMessage("DataInvalid", new{@class = "text-danger"})
         <form asp-action="CreateMember" method="post">
           <!-- Step navigation -->
           <ul class="nav nav-tabs mb-4" id="addMemberTabs" role="tablist">
@@ -51,7 +51,7 @@
                 <h5 class="text-primary fw-bold">Personal Information</h5>
                 <hr class="mt-2" />
               </div>
-              <div class="row g-3">
+              @* <div class="row g-3">
                 <div class="form-group">
                   <!-- Photo Preview -->
                   <div class="mt-2">
@@ -82,7 +82,7 @@
                     >Max size: 5 MB. Allowed types: JPG, PNG, GIF
                     (Required)</small
                   >
-                </div>
+                </div> *@
 
                 <div class="col-12 col-md-6">
                   <label asp-for="Name">Name</label>
@@ -197,3 +197,8 @@
             </button>
           </footer>
         </form>
+
+        @section Scripts{
+            <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+            <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+        }
