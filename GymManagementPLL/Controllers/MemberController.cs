@@ -130,6 +130,28 @@ namespace GymManagementPL.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult MemberEdit([FromRoute] int id , MemberToUpdateViewModel MemberToEdit)
+        {
+            if (!ModelState.IsValid)
+                return View(MemberToEdit);
+
+            var Result = _memberService.UpdateMemberDetails(id, MemberToEdit);
+
+            if (Result)
+            {
+                TempData["SuccessMessage"] = "Member is Updated Successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Member is Failed to Update.";
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
+
+
+
         #endregion
 
 
