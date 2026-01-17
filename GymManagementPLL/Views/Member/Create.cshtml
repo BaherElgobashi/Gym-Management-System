@@ -140,7 +140,7 @@
             </div>
 
             <!-- Health Data -->
-            <div
+          @*   <div
               class="tab-pane fade"
               id="health-info"
               role="tabpanel"
@@ -181,7 +181,47 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> *@
+
+
+    <div class="tab-pane fade" id="health-info" role="tabpanel" aria-labelledby="health-tab">
+        <div class="row g-3">
+            <div class="col-12 col-md-6">
+                <label asp-for="HealthRecordViewModel.Height" class="form-label"></label>
+                <input asp-for="HealthRecordViewModel.Height" type="text" class="form-control" />
+                <span asp-validation-for="HealthRecordViewModel.Height" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="HealthRecordViewModel.Weight" class="form-label"></label>
+                <input asp-for="HealthRecordViewModel.Weight" type="text" class="form-control" />
+                <span asp-validation-for="HealthRecordViewModel.Weight" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="HealthRecordViewModel.BloodType" class="form-label"></label>
+                <select asp-for="HealthRecordViewModel.BloodType" class="form-select">
+                    <option value="">Select Blood Type</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+                <span asp-validation-for="HealthRecordViewModel.BloodType" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="HealthRecordViewModel.Notes" class="form-label"></label>
+                <textarea asp-for="HealthRecordViewModel.Notes" class="form-control" rows="1"></textarea>
+                <span asp-validation-for="HealthRecordViewModel.Notes" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+      
 
           <footer class="d-flex justify-content-end gap-3 mt-4">
             <a

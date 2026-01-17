@@ -55,7 +55,7 @@ namespace GymManagementPL.Controllers
         {
             if (id <= 0)
             {
-                TempData["ErrorMessage"] = "Id must be 0 or Negative Number.";
+                TempData["ErrorMessage"] = "Id can't be 0 or Negative Number.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -103,6 +103,30 @@ namespace GymManagementPL.Controllers
 
             return RedirectToAction(nameof(Index));
         
+
+        }
+
+        #endregion
+
+        #region  Edit Member
+
+        public IActionResult MemberEdit(int id)
+        {
+            if(id <= 0)
+            {
+                TempData["ErrorMessage"] = "Id can't be 0 or Negative Number.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var Member = _memberService.GetMemberToUpdate(id);
+            if(Member is null)
+            {
+                TempData["ErrorMessage"] = "Member is not Found.";
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(Member);
 
         }
 
