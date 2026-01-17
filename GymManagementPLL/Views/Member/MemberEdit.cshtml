@@ -17,6 +17,8 @@
                             <div class="card-body text-center">
                                 <h2 class="mb-1 text-primary-color">@Model.Name</h2>
                                 <form method="post" asp-action="MemberEdit">
+                                    <input hidden readonly asp-for="Photo"/>
+                                    <input hidden readonly asp-for="Name"/>
                                     <div class="mt-4 text-start">
                                         <div class="row g-3">
                                             <div class="col-12">
