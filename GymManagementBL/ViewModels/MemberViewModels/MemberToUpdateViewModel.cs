@@ -25,7 +25,7 @@ namespace GymManagementBLL.ViewModels.MemberViewModels
         [Required(ErrorMessage = "Phone is Required.")]
         [DataType(DataType.PhoneNumber)] // UI Hint.
         [Phone(ErrorMessage = "Invalid Phonenumber.")]
-        [RegularExpression(@"^[010|011|012|015]\d{8}$", ErrorMessage = "Phonenumber must be Egyptian Ponenumber.")]
+        [RegularExpression(@"^(010|011|012|015)\d{8}$", ErrorMessage = "Phonenumber must be Egyptian Ponenumber.")]
 
         public string Phone { get; set; } = null!;
 
