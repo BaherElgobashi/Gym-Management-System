@@ -84,6 +84,7 @@ namespace GymManagementBLL.Services.Classes
             {   
                 Id = x.Id,
                 Name = x.Name,
+                Email = x.Email,
                 Photo = x.Photo,
                 Phone = x.Phone,
                 Gender = x.Gender.ToString(),
