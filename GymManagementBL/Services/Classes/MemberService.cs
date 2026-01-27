@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.Services.Interfcaes;
+﻿using AutoMapper;
+using GymManagementBLL.Services.Interfcaes;
 using GymManagementBLL.ViewModels.MemberViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
@@ -43,10 +44,12 @@ namespace GymManagementBLL.Services.Classes
 
         // After Implementing Unit of work we don't need to inject all these repositories , onlu unit of work will handle.this.
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public MemberService(IUnitOfWork unitOfWork)
+        public MemberService(IUnitOfWork unitOfWork , IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public IEnumerable<MemberViewModel> GetAllMembers()
@@ -237,14 +240,16 @@ namespace GymManagementBLL.Services.Classes
                 var Member = _unitOfWork.GetRepository<Member>().GetById(Id);
                 if(Member == null) return false;
 
-                Member.Name = UpdatedMember.Name;
-                Member.Photo = UpdatedMember.Photo;
-                Member.Email = UpdatedMember.Email;
-                Member.Phone = UpdatedMember.Phone;
-                Member.Address.BuildingNumber = UpdatedMember.BuildingNumber;
-                Member.Address.Street = UpdatedMember.Street;
-                Member.Address.City = UpdatedMember.City;
-                Member.UpdatedAt = DateTime.Now;
+                //Member.Name = UpdatedMember.Name;
+                //Member.Photo = UpdatedMember.Photo;
+                //Member.Email = UpdatedMember.Email;
+                //Member.Phone = UpdatedMember.Phone;
+                //Member.Address.BuildingNumber = UpdatedMember.BuildingNumber;
+                //Member.Address.Street = UpdatedMember.Street;
+                //Member.Address.City = UpdatedMember.City;
+                //Member.UpdatedAt = DateTime.Now;
+
+                _mapper.Map(UpdatedMember, Member);
 
                  _unitOfWork.GetRepository<Member>().Update(Member) ; // Updated Locally.
                 return _unitOfWork.SaveChanges() > 0; //  Updated To Database.
