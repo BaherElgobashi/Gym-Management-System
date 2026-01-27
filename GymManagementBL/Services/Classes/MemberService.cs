@@ -230,10 +230,10 @@ namespace GymManagementBLL.Services.Classes
                 //if(IsEmailExists(UpdatedMember.Email) || IsPhoneExists(UpdatedMember.Phone)) return false;
 
                 var EmailExists = _unitOfWork.GetRepository<Member>()
-                                            .GetAll(x => x.Email == UpdatedMember.Email && x.Id == Id);
+                                            .GetAll(x => x.Email == UpdatedMember.Email && x.Id != Id);
 
                 var PhoneExists = _unitOfWork.GetRepository<Member>()
-                                            .GetAll(x => x.Phone == UpdatedMember.Phone && x.Id == Id);
+                                            .GetAll(x => x.Phone == UpdatedMember.Phone && x.Id != Id);
 
                 if(EmailExists.Any() && PhoneExists.Any())return  false;
 
