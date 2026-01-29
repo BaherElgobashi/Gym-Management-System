@@ -177,6 +177,23 @@ namespace GymManagementPL.Controllers
 
         }
 
+
+
+        public IActionResult DeleteConfirmed([FromRoute]int id)
+        {
+            var Result = _memberService.RemoveMember(id);
+            if (Result)
+            {
+                TempData["SuccessMessage"] = "Member is Deleted Successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Member can not be Deleted.";
+
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         #endregion
 
 
