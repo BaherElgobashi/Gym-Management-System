@@ -10,9 +10,14 @@ namespace GymManagementBLL.ViewModels.TrainerViewModels
 {
     public class CreateTrainerViewModel
     {
+        
+
+
+
+
         [Required(ErrorMessage ="Name is Required.")]
         [StringLength(50 , MinimumLength = 3 , ErrorMessage = "Name must be between 3 and 50 Characters.")]
-        [RegularExpression(@"^[a-zA-z]\s+$" , ErrorMessage = "Name must contain Letters and Spaces only.")]
+        [RegularExpression(@"^[a-zA-z\s]+$" , ErrorMessage = "Name must contain Letters and Spaces only.")]
         public string Name { get; set; } = null!;
 
 
@@ -31,7 +36,7 @@ namespace GymManagementBLL.ViewModels.TrainerViewModels
         [Required(ErrorMessage = "Phone is Required.")]
         [DataType(DataType.PhoneNumber)]
         [Phone(ErrorMessage = "Phonenumber is Invalid.")] // UI Hint.
-        [RegularExpression(@"^010|011|012|015\d{8}$" , ErrorMessage ="Phonenumber must be an Egyptian Phonenumber.")]
+        [RegularExpression(@"^(010|011|012|015)\d{8}$" , ErrorMessage ="Phonenumber must be an Egyptian Phonenumber.")]
         public string Phone { get; set; } = null!;
 
 
