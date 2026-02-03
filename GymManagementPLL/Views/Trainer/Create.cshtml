@@ -8,6 +8,8 @@
     <h3 class="text-primary-color">Add New Trainer</h3>
 </header>
 
+@Html.ValidationMessage("DataMissed" , new {@class  = "text-danger"})
+
 <form asp-action="CreateTrainer" method="post">
 
     <!-- Trainer Info -->

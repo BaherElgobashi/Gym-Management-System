@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GymManagementBLL.ViewModels.MemberViewModels;
 using GymManagementBLL.ViewModels.SessionViewModels;
+using GymManagementBLL.ViewModels.TrainerViewModels;
 using GymManagementDAL.Entities;
 using GymManagementSystemBLL.ViewModels.SessionViewModels;
 using System;
@@ -17,6 +18,7 @@ namespace GymManagementBLL
         {
             MapSession();
             MapMember();
+            MapTrainer();
 
 
 
@@ -86,6 +88,36 @@ namespace GymManagementBLL
                 
 
 
+        }
+
+
+
+
+
+        private void MapTrainer()
+        {
+            CreateMap<CreateTrainerViewModel, Trainer>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+                {
+                    BuildingNumber = src.BuildingNumber,
+                    Street = src.Street,
+                    City = src.City
+                }));
+            CreateMap<Trainer, TrainerViewModel>();
+            CreateMap<Trainer, TrainerToUpdateViewModel>()
+                .ForMember(dist => dist.Street, opt => opt.MapFrom(src => src.Address.Street))
+                .ForMember(dist => dist.City, opt => opt.MapFrom(src => src.Address.City))
+                .ForMember(dist => dist.BuildingNumber, opt => opt.MapFrom(src => src.Address.BuildingNumber));
+
+            CreateMap<TrainerToUpdateViewModel, Trainer>()
+            .ForMember(dest => dest.Name, opt => opt.Ignore())
+            .AfterMap((src, dest) =>
+            {
+                dest.Address.BuildingNumber = src.BuildingNumber;
+                dest.Address.City = src.City;
+                dest.Address.Street = src.Street;
+                dest.UpdatedAt = DateTime.Now;
+            });
         }
     }
 }
