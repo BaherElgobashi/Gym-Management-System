@@ -16,5 +16,27 @@ namespace GymManagementPL.Controllers
             var Trainers = _trainerService.GetAllTrainers();
             return View(Trainers);
         }
+
+        #region Get Trainer Details
+        public IActionResult GetTrainerDetails(int id)
+        {
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Id can't be Zero or Negative Number";
+                return RedirectToAction(nameof(Index));
+            }
+
+
+            var Trainer = _trainerService.GetTrainerDetails(id);
+
+            if (Trainer is null)
+            {
+                TempData["ErrorMessage"] = "Trainer is not Found";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Trainer);
+
+        }
+        #endregion
     }
 }
