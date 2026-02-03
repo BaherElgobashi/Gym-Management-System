@@ -269,7 +269,7 @@ namespace GymManagementBLL.Services.Classes
             if(Member == null) return false;
 
             var HasActiveMemberSessions = _unitOfWork.GetRepository<MemberSession>()
-                .GetAll(x=>x.MemberId == MemberId && x.Session.StartDate > DateTime.Now).Any();
+                .GetAll(x=>x.MemberId == MemberId && x.Session.StartDate > DateTime.UtcNow).Any();
 
             if(HasActiveMemberSessions) return false;
 
@@ -294,6 +294,13 @@ namespace GymManagementBLL.Services.Classes
             }
 
         }
+
+
+
+
+
+
+
 
 
 

@@ -173,13 +173,16 @@ namespace GymManagementPL.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.MemberId = id;
+            ViewBag.MemberName = Member.Name;
+
             return View();
 
         }
 
 
-
-        public IActionResult DeleteConfirmed([FromRoute]int id)
+        [HttpPost]
+        public IActionResult DeleteConfirmed([FromForm] int id)
         {
             var Result = _memberService.RemoveMember(id);
             if (Result)
