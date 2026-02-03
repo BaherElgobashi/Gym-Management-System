@@ -10,5 +10,11 @@ namespace GymManagementPL.Controllers
         {
             _trainerService = trainerService;
         }
+        
+        public IActionResult Index()
+        {
+            var Trainers = _trainerService.GetAllTrainers();
+            return View(Trainers);
+        }
     }
 }
