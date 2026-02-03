@@ -18,7 +18,7 @@ namespace GymManagementPL.Controllers
         }
 
         #region Get Trainer Details
-        public IActionResult GetTrainerDetails(int id)
+        public IActionResult TrainerDetails(int id)
         {
             if (id <= 0)
             {
