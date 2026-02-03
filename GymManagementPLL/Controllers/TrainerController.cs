@@ -38,5 +38,17 @@ namespace GymManagementPL.Controllers
 
         }
         #endregion
+
+
+        #region Create Trainer
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+
+        #endregion
     }
 }
