@@ -1,4 +1,4 @@
-﻿@model UpdateTrainerViewModel
+﻿@model TrainerToUpdateViewModel
 @{
     ViewData["Title"] = "Edit Trainer";
 }
@@ -63,11 +63,11 @@
                             <hr class="mt-2">
                         </div>
                         <div class="row g-3">
-                            <label asp-for="Specialization" class="form-label"></label>
-                            <select asp-for="Specialization" asp-items="Html.GetEnumSelectList<Specialties>()" class="form-select">
+                            <label asp-for="Specialties" class="form-label"></label>
+                            <select asp-for="Specialties" asp-items="Html.GetEnumSelectList<Specialties>()" class="form-select">
                                 <option value="">-- Select Specialization --</option>
                             </select>
-                            <span asp-validation-for="Specialization" class="text-danger"></span>
+                            <span asp-validation-for="Specialties" class="text-danger"></span>
                         </div>
 
                         <div class="d-flex justify-content-between mt-4 pt-3 border-top">

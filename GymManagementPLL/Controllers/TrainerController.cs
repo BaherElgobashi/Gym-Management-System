@@ -97,6 +97,28 @@ namespace GymManagementPL.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult EditTrainer([FromRoute] int id , TrainerToUpdateViewModel TrainerToEdit)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("DataInvalid", "Check data and Missing Fields.");
+                return View(TrainerToEdit);
+            }
+
+            bool Result = _trainerService.UpdateTrainerDetails(id, TrainerToEdit);
+            if (Result)
+            {
+                TempData["SuccessMessage"] = "Trainer is Updated Successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Trainer is Failed to be Updated.";
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
         #endregion
     }
 }
