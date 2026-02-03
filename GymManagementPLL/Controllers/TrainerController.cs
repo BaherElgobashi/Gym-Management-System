@@ -122,7 +122,27 @@ namespace GymManagementPL.Controllers
         #endregion
 
 
-        #region MyRegion
+        #region Remove Trainer.
+
+        public IActionResult DeleteTrainer(int id)
+        {
+            if(id <= 0)
+            {
+                TempData["ErrorMessage"] = "Id can't be Zero or Negative Number.";
+            }
+
+            var Trainer = _trainerService.GetTrainerDetails(id);
+            if(Trainer == null)
+            {
+                TempData["ErrorMessage"] = "Trainer is not Found.";
+                return RedirectToAction(nameof(Index));
+
+            }
+            ViewBag.TrainerId = id;
+            ViewBag.TrainerName = Trainer.Name;
+            return View();
+        }
+
 
         #endregion
 

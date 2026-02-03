@@ -25,7 +25,7 @@ namespace GymManagementBLL.Services.Interfcaes
         bool UpdateTrainerDetails(int Id , TrainerToUpdateViewModel UpdateTrainer);
 
         // Delete The Trainer.
-        bool RemoveTrainer(int TrainerId);
+        bool  RemoveTrainer(int TrainerId);
 
     }
 }

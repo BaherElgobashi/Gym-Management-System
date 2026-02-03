@@ -103,7 +103,9 @@ namespace GymManagementBLL
                     Street = src.Street,
                     City = src.City
                 }));
+
             CreateMap<Trainer, TrainerViewModel>();
+
             CreateMap<Trainer, TrainerToUpdateViewModel>()
                 .ForMember(dist => dist.Street, opt => opt.MapFrom(src => src.Address.Street))
                 .ForMember(dist => dist.City, opt => opt.MapFrom(src => src.Address.City))
