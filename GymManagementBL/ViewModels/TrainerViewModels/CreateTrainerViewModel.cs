@@ -67,7 +67,7 @@ namespace GymManagementBLL.ViewModels.TrainerViewModels
 
         [Required(ErrorMessage = "City is Required.")]
         [StringLength(30 , MinimumLength = 2 , ErrorMessage = "City must be between 2 and 30 Characters.")]
-        [RegularExpression(@"^[a-zA-Z]\s+$" , ErrorMessage = "City must contain Letters and Spaces.")]
+        [RegularExpression(@"^[a-zA-Z\s]+$" , ErrorMessage = "City must contain Letters and Spaces.")]
         public string City { get; set; } = null!;
 
 
