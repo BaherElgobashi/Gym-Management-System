@@ -54,7 +54,7 @@ namespace GymManagementPL.Controllers
             if(!ModelState.IsValid)
             {
                 ModelState.AddModelError("DataInvalid", "Check data and Missing Fields.");
-                return RedirectToAction(nameof(Index));
+                return View(nameof(Create), CreateTrainer);
             }
 
             bool Result = _trainerService.CreateTrainer(CreateTrainer);
