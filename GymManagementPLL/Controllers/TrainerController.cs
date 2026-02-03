@@ -72,5 +72,31 @@ namespace GymManagementPL.Controllers
 
 
         #endregion
+
+
+
+        #region Edit Trainer
+
+        public IActionResult EditTrainer(int id)
+        {
+            if(id <= 0)
+            {
+                TempData["ErrorMessage"] = "Id can't be Zero or Negative Number.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var Trainer = _trainerService.GetTrainerToUpdate(id);
+
+            if(Trainer is null)
+            {
+                TempData["ErrorMessage"] = "Trainer is not Found.";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Trainer);
+
+        }
+
+
+        #endregion
     }
 }

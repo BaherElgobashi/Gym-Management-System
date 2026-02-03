@@ -82,13 +82,15 @@ namespace GymManagementBLL.Services.Classes
 
                 return _unitOfWork.SaveChanges() > 0; // Added To Database.
             }
-            catch
+            catch (Exception ex)
             {
+                // Log ex.Message to see the actual error
+                Console.WriteLine(ex.Message);
                 return false;
             }
 
 
-            
+
         }
 
 
