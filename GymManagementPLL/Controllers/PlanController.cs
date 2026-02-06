@@ -54,6 +54,27 @@ namespace GymManagementPL.Controllers
         }
         #endregion
 
+        #region Edit.
+
+        public IActionResult Edit(int id)
+        {
+            if (id <= 0)
+            {
+                TempData["ErrorMessage"] = "Id can't be Zero or Negative Number.";
+                return RedirectToAction(nameof(Index));
+            }
+            var Plan = _planService.GetPlanToUpdate(id);
+            if (Plan is null)
+            {
+                TempData["ErrorMessage"] = "Plan is Not Found!";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(Plan);
+        }
+
+
+
+        #endregion
 
 
     }
