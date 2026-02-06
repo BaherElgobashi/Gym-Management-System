@@ -69,6 +69,7 @@ namespace GymManagementBLL.Services.Classes
                     Phone = CreateTrainer.Phone,
                     DateOfBirth = CreateTrainer.DateOfBirth,
                     Gender = CreateTrainer.Gender,
+                    Specialties = CreateTrainer.Specialties,
                     Address = new Address()
                     {
                         BuildingNumber = CreateTrainer.BuildingNumber,
