@@ -50,9 +50,11 @@ namespace GymManagementPL.Controllers
 
 
 
-            #endregion
 
         }
+        #endregion
+
+
 
     }
 }
