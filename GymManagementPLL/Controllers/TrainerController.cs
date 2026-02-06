@@ -145,25 +145,7 @@ namespace GymManagementPL.Controllers
         }
 
 
-        //[HttpPost]
-        //public IActionResult ConfirmDelete([FromForm] int id)
-        //{
-        //    if (id <= 0)
-        //    {
-        //        TempData["ErrorMessage"] = "Invalid Trainer ID.";
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    bool Result = _trainerService.RemoveTrainer(id);
-        //    if (Result)
-        //    {
-        //        TempData["SuccessMessage"] = "Trainer Deleted Successfully.";
-        //    }
-        //    else
-        //    {
-        //        TempData["ErrorMessage"] = "Failed To Delete Trainer!";
-        //    }
-        //    return RedirectToAction(nameof(Index));
-        //}
+        
 
         [HttpPost]
         public IActionResult ConfirmDelete([FromForm] int id)
