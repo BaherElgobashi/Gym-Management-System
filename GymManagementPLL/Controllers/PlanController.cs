@@ -13,5 +13,20 @@ namespace GymManagementPL.Controllers
             _planService = planService;
         }
 
+        #region Get All Plans.
+
+        // Get All Plans.
+
+        public IActionResult Index()
+        {
+            var Plans = _planService.GetAllPlans();
+
+            return View(Plans);
+        }
+
+
+
+        #endregion
+
     }
 }
