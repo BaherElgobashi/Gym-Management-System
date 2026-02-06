@@ -1,4 +1,5 @@
 ﻿using GymManagementBLL.Services.Interfcaes;
+using GymManagementBLL.ViewModels.PlanViewModels;
 using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,6 +71,29 @@ namespace GymManagementPL.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(Plan);
+        }
+
+        [HttpPost]
+
+        public IActionResult Edit([FromRoute] int id , UpdatePlanViewModel updatedPlan)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("WrongData", "Please correct the errors in the form.");
+                return View(updatedPlan);
+            }
+
+            bool Result = _planService.UpdatePlan(id, updatedPlan);
+
+            if (Result) 
+            {
+                TempData["SuccessMessage"] = "Plan is Updated Successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Plan is Failed To Update.";
+            }
+            return RedirectToAction(nameof(Index));
         }
 
 
