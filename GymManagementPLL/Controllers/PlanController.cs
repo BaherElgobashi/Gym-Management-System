@@ -101,7 +101,9 @@ namespace GymManagementPL.Controllers
         #endregion
 
 
-        #region Active & Deactive - Soft Delete
+        #region Active & Deactive - Soft Delete.
+
+        [HttpPost]
 
         public IActionResult Activate(int id)
         {
