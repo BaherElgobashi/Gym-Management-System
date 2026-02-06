@@ -47,6 +47,8 @@ namespace GymManagementPLL
 
             builder.Services.AddScoped<ITrainerService, TrainerService>();
 
+            builder.Services.AddScoped<IPlanService, PlanService>();
+
 
             var app = builder.Build();
 
