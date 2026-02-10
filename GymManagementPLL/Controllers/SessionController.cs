@@ -70,6 +70,24 @@ namespace GymManagementPL.Controllers
         }
 
 
+        [HttpPost]
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            bool Result = _sessionService.RemoveSession(id);
+            if (Result)
+            {
+                TempData["ErrorMessage"] = "Session is Successfully.";
+                
+            }
+            else
+            {
+                TempData["SuccessMessage"] = "Session can't be Deleted.";
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
         #endregion
 
 
