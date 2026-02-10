@@ -47,6 +47,31 @@ namespace GymManagementPL.Controllers
         #endregion
 
 
+        #region Delete Session.
+
+        public IActionResult Delete(int id)
+        {
+            if(id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid ID.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var Session = _sessionService.GetSessionById(id);
+            if (Session is null)
+            {
+                TempData["ErrorMessage"] = "Session is not Found.";
+                return RedirectToAction(nameof(Index));
+            }
+            ViewBag.SessionId = Session.Id;
+            return View();
+
+
+        }
+
+
+        #endregion
+
 
     }
 }
