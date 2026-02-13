@@ -214,6 +214,28 @@ namespace GymManagementBLL.Services.Classes
 
 
 
+        public IEnumerable<TrainerSelectViewModel> GetTrainerForDropDown()
+        {
+            
+            var Trainers = _unitOfWork.GetRepository<Trainer>().GetAll() ?? [];
+
+
+            
+
+        }
+
+        public IEnumerable<CategorySelectViewModel> GetCategoryForDropDown()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
 
 
 
@@ -276,6 +298,8 @@ namespace GymManagementBLL.Services.Classes
             return true;
 
         }
+
+        
 
 
 
