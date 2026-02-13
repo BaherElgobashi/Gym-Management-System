@@ -121,10 +121,19 @@ namespace GymManagementBLL.Services.Classes
         {
             try
             {
-                if (IsEmailExists(UpdateTrainer.Email) || IsPhoneExists(UpdateTrainer.Phone))
-                {
+                //if (IsEmailExists(UpdateTrainer.Email) || IsPhoneExists(UpdateTrainer.Phone))
+                //{
+                //    return false;
+                //}
+
+                var EmailExists = _unitOfWork.GetRepository<Trainer>()
+                                             .GetAll(x => x.Email == UpdateTrainer.Email && x.Id != Id);
+
+                var PhoneExists = _unitOfWork.GetRepository<Trainer>()
+                                             .GetAll(x => x.Phone == UpdateTrainer.Phone && x.Id != Id);
+
+                if (EmailExists.Any() && PhoneExists.Any())
                     return false;
-                }
 
                 var OldMember = _unitOfWork.GetRepository<Trainer>().GetById(Id);
 
