@@ -226,7 +226,12 @@ namespace GymManagementBLL.Services.Classes
 
         public IEnumerable<CategorySelectViewModel> GetCategoryForDropDown()
         {
-            throw new NotImplementedException();
+
+            var Categories = _unitOfWork.GetRepository<Category>().GetAll() ?? [];
+
+            return _mapper.Map<IEnumerable< CategorySelectViewModel>>(Categories);
+                
+
         }
 
 
