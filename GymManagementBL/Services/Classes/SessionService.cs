@@ -220,7 +220,7 @@ namespace GymManagementBLL.Services.Classes
             var Trainers = _unitOfWork.GetRepository<Trainer>().GetAll() ?? [];
 
 
-            
+            return _mapper.Map<IEnumerable< TrainerSelectViewModel>>(Trainers);
 
         }
 
