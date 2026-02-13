@@ -1,5 +1,6 @@
 ﻿using GymManagementBLL.Services.Interfcaes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GymManagementPL.Controllers
 {
@@ -47,6 +48,17 @@ namespace GymManagementPL.Controllers
         #endregion
 
 
+        #region Create Session.
+
+
+
+
+        #endregion
+
+
+
+
+
         #region Delete Session.
 
         public IActionResult Delete(int id)
@@ -86,6 +98,34 @@ namespace GymManagementPL.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+
+        #endregion
+
+
+
+
+        #region Helper Methods.
+
+
+        private void LoadDropDownTrainers()
+        {
+
+            var Trainers = _sessionService.GetTrainerForDropDown();
+
+            ViewBag.Trainers = new SelectList(Trainers , "Id" , "Name");
+
+        }
+
+        private void LoadDropDownCategories()
+        {
+
+            var Categories = _sessionService.GetCategoryForDropDown();
+
+            ViewBag.Categories = new SelectList(Categories , "Id" ,"Name");
+
+        }
+
 
 
         #endregion
