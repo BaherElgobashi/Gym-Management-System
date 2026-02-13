@@ -28,7 +28,9 @@ namespace GymManagementBLL.Services.Interfcaes
         // Delete The Session.
         bool RemoveSession(int SessionId);
 
-        IEnumerable<TrainerSelectViewModel> GetTrainerForDropDown();
+        IEnumerable <TrainerSelectViewModel> GetTrainerForDropDown();
+
+        IEnumerable<CategorySelectViewModel> GetCategoryForDropDown();
 
 
     }
