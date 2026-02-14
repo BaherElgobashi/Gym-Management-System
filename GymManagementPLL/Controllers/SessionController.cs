@@ -50,7 +50,12 @@ namespace GymManagementPL.Controllers
 
         #region Create Session.
 
-
+        public IActionResult Create()
+        {
+            LoadDropDownTrainers();
+            LoadDropDownCategories();
+            return View();
+        }
 
 
         #endregion
