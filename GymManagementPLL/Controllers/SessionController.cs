@@ -1,4 +1,5 @@
 ﻿using GymManagementBLL.Services.Interfcaes;
+using GymManagementSystemBLL.ViewModels.SessionViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -56,6 +57,41 @@ namespace GymManagementPL.Controllers
             LoadDropDownCategories();
             return View();
         }
+
+        [HttpPost]
+
+        public IActionResult Create(CreateSessionViewModel CreatedSession)
+        {
+            if (!ModelState.IsValid)
+            {
+                LoadDropDownTrainers();
+                LoadDropDownCategories();
+                return View(CreatedSession);
+            }
+
+            bool Result = _sessionService.CreateSession(CreatedSession);
+
+            if (Result)
+            {
+                TempData["SuccessMessage"] = "Session is Created Succeessfully.";
+                LoadDropDownTrainers();
+                LoadDropDownCategories();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Session is Failed to be Created.";
+                LoadDropDownTrainers();
+                LoadDropDownCategories();
+                return RedirectToAction(nameof(Index));
+            }
+
+        }
+
+
+
+
+
 
 
         #endregion
