@@ -99,6 +99,44 @@ namespace GymManagementPL.Controllers
 
 
 
+        #region Edit Session.
+
+        public IActionResult Edit(int id)
+        {
+            if(id <= 0)
+            {
+                TempData["ErrorMessage"] = "Invalid Id";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var Exists = _sessionService.GetSessionById(id);
+            if(Exists is null)
+            {
+                TempData["ErrorMessage"] = "Session is Not Found." ;
+                return RedirectToAction(nameof(Index));
+            }
+
+            var SessionToUpdate = _sessionService.GetSessionToUpdate(id);
+            if(SessionToUpdate is null)
+            {
+                TempData["ErrorMessage"] = "You can't edit an ongoing or completed session.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            LoadDropDownTrainers();
+
+            return View(SessionToUpdate);
+
+
+        }
+
+
+
+        #endregion
+
+
+
+
 
         #region Delete Session.
 
