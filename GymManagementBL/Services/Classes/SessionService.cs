@@ -121,7 +121,7 @@ namespace GymManagementBLL.Services.Classes
 
                 if (!IsDateTimeValid(CreatedSession.StartDate, CreatedSession.EndDate)) return false;
 
-                if (CreatedSession.Capacity > 25 || CreatedSession.Capacity < 0) return false;
+                if (CreatedSession.Capacity > 25 || CreatedSession.Capacity <= 0) return false;
 
                 var SessionEntity = _mapper.Map<Session>(CreatedSession);
 
@@ -291,8 +291,8 @@ namespace GymManagementBLL.Services.Classes
             // If Session Started - No Delete Avaliable.
             if (session.StartDate <= DateTime.Now && session.EndDate > DateTime.Now) return false;
 
-            // If Session Upcomming - No Delete Avaliable.
-            if (session.StartDate > DateTime.Now) return false;
+            //// If Session Upcomming - No Delete Avaliable.
+            //if (session.StartDate > DateTime.Now) return false;
 
 
             // If Session HasActiveBooking - No Delete Avaliable.
