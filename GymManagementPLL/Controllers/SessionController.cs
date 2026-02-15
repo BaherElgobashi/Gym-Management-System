@@ -131,6 +131,42 @@ namespace GymManagementPL.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult Edit([FromRoute] int id , UpdateSessionViewModel updatedSession)
+        {
+            if (!ModelState.IsValid)
+            {
+                LoadDropDownTrainers();
+                return RedirectToAction(nameof(Index));
+            }
+
+            bool Result = _sessionService.UpdateSession(updatedSession , id);
+            if (Result) 
+            {
+                TempData["SuccessMessage"] = "Session is Updated Successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to Edit Session!";
+                LoadDropDownTrainers();
+                return View(updatedSession);
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #endregion
 
