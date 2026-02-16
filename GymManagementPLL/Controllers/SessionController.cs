@@ -204,12 +204,12 @@ namespace GymManagementPL.Controllers
             bool Result = _sessionService.RemoveSession(id);
             if (Result)
             {
-                TempData["ErrorMessage"] = "Session is Successfully.";
+                TempData["SuccessMessage"] = "Session is Successfully.";
                 
             }
             else
             {
-                TempData["SuccessMessage"] = "Session can't be Deleted.";
+                TempData["ErrorMessage"] = "Session can't be Deleted.";
             }
             return RedirectToAction(nameof(Index));
         }
