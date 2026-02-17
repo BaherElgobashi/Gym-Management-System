@@ -15,44 +15,56 @@ namespace GymManagementBLL.Services.AttachmentService
 
         public string? Upload(string folderName, IFormFile file)
         {
-            // 1. Check Extension.
-            var extension = Path.GetExtension(file.FileName).ToLower();
-
-            if (!allowedExtensions.Contains(extension)) return null;
-
-            // 2. Check Size.
-
-            if(folderName is null || file is null || file.Length == 0) return null;
-
-            if(file.Length > maxFileSize) return null;
-
-
-            // 3. Get Located Fold er Path.
-
-            var FolderPath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/images" , folderName);
-            if(!Directory.Exists(FolderPath))
+            try
             {
-                Directory.CreateDirectory(FolderPath);
+                // 1. Check Extension.
+                var extension = Path.GetExtension(file.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension)) return null;
+
+                // 2. Check Size.
+
+                if (folderName is null || file is null || file.Length == 0) return null;
+
+                if (file.Length > maxFileSize) return null;
+
+
+                // 3. Get Located Fold er Path.
+
+                var FolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", folderName);
+                if (!Directory.Exists(FolderPath))
+                {
+                    Directory.CreateDirectory(FolderPath);
+                }
+
+
+                // (4) Make File Name Unique - GUID
+                //var UniqueFileName = Guid.NewGuid().ToString() + extention;
+                // Using String Interpolation => Calling ToString() Directly
+                var uniqueFileName = $"{Guid.NewGuid()}{extension}";
+
+                // (5) Get Fill Path
+                var filePath = Path.Combine(FolderPath, uniqueFileName);
+
+                // (6) Create File Stream to Copy File
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    // (7) Use Stream to Copy File
+                    file.CopyTo(fileStream);
+                }
+                ;
+
+                // (8) Return FileName To Store in Database
+                return uniqueFileName;
+
             }
 
-
-            // (4) Make File Name Unique - GUID
-            //var UniqueFileName = Guid.NewGuid().ToString() + extention;
-            // Using String Interpolation => Calling ToString() Directly
-            var uniqueFileName = $"{Guid.NewGuid()}{extension}";
-
-            // (5) Get Fill Path
-            var filePath = Path.Combine(FolderPath, uniqueFileName);
-
-            // (6) Create File Stream to Copy File
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            catch (Exception ex)
             {
-                // (7) Use Stream to Copy File
-                file.CopyTo(fileStream);
-            };
+                Console.WriteLine($"Faild to delete photo : {ex}");
+                return null;
 
-            // (8) Return FileName To Store in Database
-            return uniqueFileName;
+            }
 
 
         }
