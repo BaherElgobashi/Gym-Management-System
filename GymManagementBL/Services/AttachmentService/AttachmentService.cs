@@ -59,7 +59,26 @@ namespace GymManagementBLL.Services.AttachmentService
     
         public bool Delete(string folderName, string fileName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //(1) Get Located File Path
+                if (string.IsNullOrEmpty(folderName) || string.IsNullOrEmpty(fileName)) return false;
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", folderName, fileName);
+
+                //(2) If File Exists, Delete It
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Faild to delete photo : {ex}");
+                return false;
+            }
         }
 
     }
