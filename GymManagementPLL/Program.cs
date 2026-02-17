@@ -7,6 +7,7 @@ using GymManagementDAL.Data.DataSeed;
 using GymManagementBLL;
 using GymManagementBLL.Services.Interfcaes;
 using GymManagementBLL.Services.Classes;
+using GymManagementBLL.Services.AttachmentService;
 
 namespace GymManagementPLL
 {
@@ -50,6 +51,8 @@ namespace GymManagementPLL
             builder.Services.AddScoped<IPlanService, PlanService>();
 
             builder.Services.AddScoped<ISessionService , SessionService>();
+
+            builder.Services.AddScoped<IAttachmentService , AttachmentService>();
 
 
             var app = builder.Build();
