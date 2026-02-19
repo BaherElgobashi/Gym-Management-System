@@ -24,15 +24,27 @@ namespace GymManagementDAL.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<ApplicationUser>(Eb => {
+                Eb.Property(X => X.FirstName)
+                  .HasColumnType("varchar")
+                  .HasMaxLength(50);
+
+                Eb.Property(X => X.LastName)
+                  .HasColumnName("varchar")
+                  .HasMaxLength(50);
+            });
         }
 
         #region DbSets.
 
-        public DbSet<ApplicationUser> Users { get; set; }
+        //public DbSet<ApplicationUser> Users { get; set; }
 
-        public DbSet<IdentityRole> Roles { get; set; }
-        public DbSet<IdentityUserRole<string>> UserRoles { get; set; }
+        //public DbSet<IdentityRole> Roles { get; set; }
+
+        //public DbSet<IdentityUserRole<string>> UserRoles { get; set; }
 
         public DbSet<Member> Members { get; set; }
         public DbSet<HealthRecord> HealthRecords { get; set; }
