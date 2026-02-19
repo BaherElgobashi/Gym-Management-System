@@ -91,6 +91,7 @@ namespace GymManagementBLL.Services.Classes
                 Photo = x.Photo,
                 Phone = x.Phone,
                 Gender = x.Gender.ToString(),
+                
 
             });
 
@@ -117,6 +118,10 @@ namespace GymManagementBLL.Services.Classes
                     return false;
                 }
 
+                var PhotoName = _attachmentService.Upload("members", createMember.PhotoFile);
+
+                if (string.IsNullOrEmpty(PhotoName)) return false;
+
                 // If Not Add Member and Return True If Added.
                 var Member = new Member()
                 {
@@ -125,6 +130,7 @@ namespace GymManagementBLL.Services.Classes
                     Phone = createMember.Phone,
                     Gender = createMember.Gender,
                     DateOfBirth = createMember.DateOfBirth,
+                    
                     Address = new Address()
                     {
                         BuildingNumber = createMember.BuildingNumber,
@@ -140,9 +146,20 @@ namespace GymManagementBLL.Services.Classes
                     },
                 };
 
+                Member.Photo = PhotoName;
+
                 // Add the new member.
                  _unitOfWork.GetRepository<Member>().Add(Member) ; // Added Locally.
-                return _unitOfWork.SaveChanges() > 0; //  Save TO Database.
+                var isCreated = _unitOfWork.SaveChanges() > 0; //  Save TO Database.
+                if (!isCreated)
+                {
+                    _attachmentService.Delete("members", PhotoName);
+                    return false;
+                }
+                else
+                {
+                    return isCreated;
+                }
 
 
             }
