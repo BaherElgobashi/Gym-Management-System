@@ -306,7 +306,14 @@ namespace GymManagementBLL.Services.Classes
                     
                 }
                  _unitOfWork.GetRepository<Member>().Delete(Member); // Deleted Locally.
-                return _unitOfWork.SaveChanges() > 0; // Deleted From Database.
+                var isDeleted = _unitOfWork.SaveChanges() > 0; // Deleted From Database.
+
+                if (isDeleted)
+                {
+                    _attachmentService.Delete("members", Member.Photo);
+                }
+
+                return isDeleted;
             }
             catch
             {
