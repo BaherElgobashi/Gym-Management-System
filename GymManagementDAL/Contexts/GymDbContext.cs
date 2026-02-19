@@ -1,4 +1,6 @@
 ﻿using GymManagementDAL.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Contexts
 {
-    public class GymDbContext : DbContext
+    public class GymDbContext : IdentityDbContext<ApplicationUser>
     {
         public GymDbContext(DbContextOptions<GymDbContext>Options) : base(Options)
         {
@@ -26,6 +28,11 @@ namespace GymManagementDAL.Contexts
         }
 
         #region DbSets.
+
+        public DbSet<ApplicationUser> Users { get; set; }
+
+        public DbSet<IdentityRole> Roles { get; set; }
+        public DbSet<IdentityUserRole<string>> UserRoles { get; set; }
 
         public DbSet<Member> Members { get; set; }
         public DbSet<HealthRecord> HealthRecords { get; set; }
