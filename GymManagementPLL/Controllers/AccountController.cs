@@ -11,5 +11,15 @@ namespace GymManagementPL.Controllers
         {
             _accountService = accountService;
         }
+
+        #region Login
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+
+        #endregion
     }
 }
