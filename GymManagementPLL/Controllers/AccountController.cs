@@ -55,5 +55,20 @@ namespace GymManagementPL.Controllers
         }
 
         #endregion
+
+        #region Logout.
+
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync().GetAwaiter().GetResult();
+            return RedirectToAction(nameof(Login),"Account");
+        }
+
+
+
+        #endregion
+
+
+
     }
 }
