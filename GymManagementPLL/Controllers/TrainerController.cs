@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
 {
-    [Authorize("SuperAdmin")]
+    [Authorize(Roles ="SuperAdmin")]
     public class TrainerController : Controller
     {
         

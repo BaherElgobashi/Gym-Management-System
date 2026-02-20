@@ -17,7 +17,7 @@ namespace GymManagementPL.Controllers
             _signInManager = signInManager;
         }
 
-        #region Login
+        #region Login.
 
         public IActionResult Login()
         {
@@ -53,19 +53,6 @@ namespace GymManagementPL.Controllers
 
             return View(model);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         #endregion
     }
