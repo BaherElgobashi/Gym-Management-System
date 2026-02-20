@@ -8,12 +8,14 @@ using GymManagementBLL;
 using GymManagementBLL.Services.Interfcaes;
 using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.AttachmentService;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace GymManagementPLL
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +76,27 @@ namespace GymManagementPLL
 
 
             GymDbContextSeeding.SeedData(dbContext);
+
+
+            //=======================================================================
+
+            var roleManager = Scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            var userManager = Scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+
+            await IdentityDbContextSeeding.SeedDataAsync(roleManager, userManager);
+
+
+
+
+
+
+
+
+
+
+
 
 
             //var PendingMigrations = await dbContext.Database.GetPendingMigrationsAsync();
