@@ -10,6 +10,7 @@ using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.AttachmentService;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using GymManagementBLL.Services.Interfaces;
 
 namespace GymManagementPLL
 {
@@ -55,6 +56,8 @@ namespace GymManagementPLL
             builder.Services.AddScoped<ISessionService , SessionService>();
 
             builder.Services.AddScoped<IAttachmentService , AttachmentService>();
+
+            builder.Services.AddScoped<IAccountService , AccountService>();
 
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>(Config =>
             {
