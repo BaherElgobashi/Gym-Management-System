@@ -62,6 +62,15 @@ namespace GymManagementPLL
 
             }).AddEntityFrameworkStores<GymDbContext>();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
+
+            //builder.Services.AddIdentityCore<ApplicationUser>()
+            //                .AddEntityFrameworkStores<GymDbContext>();                   
+
 
             var app = builder.Build();
 
