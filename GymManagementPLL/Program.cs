@@ -56,6 +56,12 @@ namespace GymManagementPLL
 
             builder.Services.AddScoped<IAttachmentService , AttachmentService>();
 
+            builder.Services.AddIdentity<ApplicationUser , IdentityRole>(Config =>
+            {
+                Config.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<GymDbContext>();
+
 
             var app = builder.Build();
 
