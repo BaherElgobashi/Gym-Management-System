@@ -1,12 +1,15 @@
 ﻿using GymManagementBLL.Services.Classes;
 using GymManagementBLL.Services.Interfcaes;
 using GymManagementBLL.ViewModels.TrainerViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagementPL.Controllers
 {
+    [Authorize("SuperAdmin")]
     public class TrainerController : Controller
     {
+        
         private readonly ITrainerService _trainerService;
         public TrainerController(ITrainerService trainerService)
         {
