@@ -33,5 +33,11 @@ namespace GymManagementBLL.Services.Classes
 
 
         }
+
+
+
+
+
+
     }
 }
