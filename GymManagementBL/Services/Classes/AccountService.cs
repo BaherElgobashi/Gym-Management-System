@@ -1,6 +1,7 @@
 ﻿using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.AccountViewModels;
 using GymManagementDAL.Entities;
+using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Identity.Client;
 using System;
@@ -14,10 +15,13 @@ namespace GymManagementBLL.Services.Classes
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AccountService(UserManager<ApplicationUser>userManager)
+        public AccountService(UserManager<ApplicationUser>userManager,
+                               IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
 
 
@@ -98,6 +102,33 @@ namespace GymManagementBLL.Services.Classes
             return superAdminModel;
         }
 
-        
+
+        public async Task<bool> Delete(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user is null)
+                return false;
+            var rolesForUser = await _userManager.GetRolesAsync(user);
+            try
+            {
+                using (var transaction = _unitOfWork.BeginTransaction())
+                {
+                    if (rolesForUser is not null && rolesForUser.Any())
+                    {
+                        await _userManager.RemoveFromRolesAsync(user, rolesForUser);
+                    }
+                    var result = await _userManager.DeleteAsync(user);
+                    await transaction.CommitAsync();
+                    return result.Succeeded;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+
     }
 }
