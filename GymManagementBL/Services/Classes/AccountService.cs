@@ -61,11 +61,43 @@ namespace GymManagementBLL.Services.Classes
             return Result;
         }
 
+        public async Task<IEnumerable<UserViewModel>> GetUserAsync()
+        {
+            var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+            var superAdminUsers = await _userManager.GetUsersInRoleAsync("SuperAdmin");
+            if ((adminUsers == null || !adminUsers.Any()) && (superAdminUsers == null || !superAdminUsers.Any()))
+                return [];
+            bool isAdminUserExist = false;
+            IEnumerable<UserViewModel> AdminModel = Enumerable.Empty<UserViewModel>();
+            if (adminUsers is not null)
+            {
+                AdminModel = adminUsers.Select(x => new UserViewModel
+                {
+                    UserId = x.Id,
+                    FullName = $"{x.FirstName.Trim()} {x.LastName.Trim()}",
+                    Email = x.Email,
+                    Role = "Admin"
+                });
 
+                if (superAdminUsers is null)
+                    return AdminModel;
+                isAdminUserExist = true;
+            }
+            var superAdminModel = superAdminUsers.Select(x => new UserViewModel
+            {
+                FullName = $"{x.FirstName.Trim()} {x.LastName.Trim()}",
+                UserId = x.Id,
+                Email = x.Email,
+                Role = "SuperAdmin"
+            });
 
+            if (isAdminUserExist)
+            {
+                return AdminModel.Concat(superAdminModel);
+            }
+            return superAdminModel;
+        }
 
-
-
-
+        
     }
 }
