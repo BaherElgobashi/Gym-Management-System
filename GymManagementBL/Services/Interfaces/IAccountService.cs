@@ -15,5 +15,7 @@ namespace GymManagementBLL.Services.Interfaces
 
         Task<IdentityResult> RegisterAsync(CreateNewUser Model);
         asjvalkm;fdkerjjkfnevaf
+
+            cnannnnn
     }
 }
