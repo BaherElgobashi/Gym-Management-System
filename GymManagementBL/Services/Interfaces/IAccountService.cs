@@ -14,8 +14,6 @@ namespace GymManagementBLL.Services.Interfaces
         Task<ApplicationUser?> ValidateUserAsync(LoginViewModel loginViewModel);
 
         Task<IdentityResult> RegisterAsync(CreateNewUser Model);
-        asjvalkm;fdkerjjkfnevaf
-
-            cnannnnn
+        Task delete;
     }
 }
