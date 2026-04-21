@@ -65,7 +65,7 @@ namespace GymManagementBLL.Services.Classes
             return Result;
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetUserAsync()
+        public async Task<IEnumerable<UserViewModel>> GetUsersAsync()
         {
             var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
             var superAdminUsers = await _userManager.GetUsersInRoleAsync("SuperAdmin");

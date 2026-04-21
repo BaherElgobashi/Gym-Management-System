@@ -1,6 +1,7 @@
 ﻿using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.AccountViewModels;
 using GymManagementDAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -74,6 +75,69 @@ namespace GymManagementPL.Controllers
         {
             return View();
         }
+
+        #endregion
+
+
+        #region SuperAdmins
+
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> Index()
+        {
+            var Users = await _accountService.GetUsersAsync();
+            return View(Users);
+
+        }
+
+
+        [Authorize(Roles = "SuperAdmin")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpPost]
+        public async Task<IActionResult> Register(CreateNewUser input)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("DataMissed", "Please fill in all required fields.");
+                return View(nameof(Register), input);
+            }
+
+            var result = await _accountService.RegisterAsync(input);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Admin was created successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(nameof(Register), input);
+        }
+
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var isDeleted = await _accountService.Delete(id);
+            if (isDeleted)
+                TempData["SuccessMessage"] = "The admin has been deleted successfully.";
+            else
+                TempData["ErrorMessage"] = "Failed to delete the admin.";
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
 
         #endregion
 

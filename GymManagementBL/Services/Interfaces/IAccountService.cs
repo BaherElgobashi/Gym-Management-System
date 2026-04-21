@@ -15,7 +15,7 @@ namespace GymManagementBLL.Services.Interfaces
 
         Task<IdentityResult> RegisterAsync(CreateNewUser Model);
 
-        Task<IEnumerable<UserViewModel>> GetUserAsync();
+        Task<IEnumerable<UserViewModel>> GetUsersAsync();
 
         Task<bool> Delete(string userId);
        
