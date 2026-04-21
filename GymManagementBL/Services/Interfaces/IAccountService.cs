@@ -1,5 +1,6 @@
 ﻿using GymManagementBLL.ViewModels.AccountViewModels;
 using GymManagementDAL.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace GymManagementBLL.Services.Interfaces
     public interface IAccountService
     {
         Task<ApplicationUser?> ValidateUserAsync(LoginViewModel loginViewModel);
+
+        Task<IdentityResult> RegisterAsync(CreateNewUser Model);
     }
 }
