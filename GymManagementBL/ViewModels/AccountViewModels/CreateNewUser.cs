@@ -53,4 +53,4 @@ namespace GymManagementBLL.ViewModels.AccountViewModels
         SuperAdmin = 2
     }
 }
-}
+
