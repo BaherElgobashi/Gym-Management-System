@@ -14,6 +14,6 @@ namespace GymManagementBLL.Services.Interfaces
         Task<ApplicationUser?> ValidateUserAsync(LoginViewModel loginViewModel);
 
         Task<IdentityResult> RegisterAsync(CreateNewUser Model);
-        CancellationToken you test it?
+       
     }
 }

@@ -19,6 +19,8 @@ namespace GymManagementBLL.Services.Classes
         {
             _userManager = userManager;
         }
+
+
         public async Task<ApplicationUser?> ValidateUserAsync(LoginViewModel loginViewModel)
         {
             var User = await _userManager.FindByEmailAsync(loginViewModel.Email);
@@ -34,6 +36,30 @@ namespace GymManagementBLL.Services.Classes
 
         }
 
+
+        public async Task<IdentityResult> RegisterAsync(CreateNewUser Model)
+        {
+            ApplicationUser user = new ApplicationUser()
+            {
+                FirstName = Model.FirstName,
+                LastName = Model.LastName,
+                Email = Model.Email,
+                UserName = Model.Username
+
+            };
+
+            var Result = await _userManager.CreateAsync(user,Model.Password);
+            if (Result.Succeeded)
+            {
+                var RoleResult = await _userManager.AddToRoleAsync(user, Model.Role.ToString());
+                if (RoleResult.Succeeded) 
+                {
+                    var Errors = RoleResult.Errors.ToArray();
+                    return IdentityResult.Failed(Errors);
+                }
+            }
+            return Result;
+        }
 
 
 
