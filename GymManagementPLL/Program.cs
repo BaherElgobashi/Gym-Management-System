@@ -58,6 +58,7 @@ namespace GymManagementPLL
             builder.Services.AddScoped<IAttachmentService , AttachmentService>();
 
             builder.Services.AddScoped<IAccountService , AccountService>();
+            builder.Services.AddScoped<IMemberService, MemberService>();
 
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>(Config =>
             {
