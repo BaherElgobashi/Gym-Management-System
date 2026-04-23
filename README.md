@@ -236,7 +236,7 @@ All business rules (capacity, attendance, active membership) are validated serve
 
 Baher Mohamed Zakaria Elgobashi
 
-Email:bahermohamedelgobashi@gmail.com
+Email: bahermohamedelgobashi@gmail.com
 
 LinkedIn: https://www.linkedin.com/in/baher-elgobashi-1975a5298/
 
