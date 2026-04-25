@@ -29,7 +29,9 @@ namespace GymManagementDAL.Repositories.Classes
 
         public Membership? GetFirstOrDefault(Func<Membership, bool>? filter = null)
         {
-            throw new NotImplementedException();
+            var MemberShip = _dbContext.Memberships.FirstOrDefault(filter ?? (_ => true));
+
+            return MemberShip;
         }
     }
 }
