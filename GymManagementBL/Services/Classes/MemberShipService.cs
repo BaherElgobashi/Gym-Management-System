@@ -5,6 +5,7 @@ using GymManagementBLL.ViewModels.MemberShipViewModels;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +45,11 @@ namespace GymManagementBLL.Services.Classes
 
         public IEnumerable<PlanForSelectListViewModel> GetPlansForDropDown()
         {
-            throw new NotImplementedException();
+            var PlansForDropDown = _unitOfWork.GetRepository<Plan>().GetAll();
+
+            var PlansForSelectViewModel = _mapper.Map<IEnumerable<PlanForSelectListViewModel>>(PlansForDropDown);
+
+            return PlansForSelectViewModel;
         }
         public bool CreateMemberShip(CreateMemberShipViewModel Model)
         {
