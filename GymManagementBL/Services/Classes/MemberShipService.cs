@@ -53,7 +53,23 @@ namespace GymManagementBLL.Services.Classes
         }
         public bool CreateMemberShip(CreateMemberShipViewModel Model)
         {
-            throw new NotImplementedException();
+            if(IsMemberExists(Model.MemberId) && IsPlanExists(Model.PlanId) && HasActiveMemberShip(Model.MemberId))
+            {
+                return false;
+            }
+
+            var membershipRepo = _unitOfWork.MembershipRepository;
+
+            var memberShipcreate = _mapper.Map<Membership>(Model);
+
+            var plan = _unitOfWork.GetRepository<Plan>().GetById(Model.PlanId);
+
+            memberShipcreate.EndDate = DateTime.Now.AddDays(plan!.DurationDays);
+
+            membershipRepo.Add(memberShipcreate);
+
+            return _unitOfWork.SaveChanges() > 0;
+
         }
 
         public bool DeleteMemberShip(int MemberId)
