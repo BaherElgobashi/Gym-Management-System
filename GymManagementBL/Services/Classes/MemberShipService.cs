@@ -74,7 +74,20 @@ namespace GymManagementBLL.Services.Classes
 
         public bool DeleteMemberShip(int MemberId)
         {
-            throw new NotImplementedException();
+            var membershiprepo = _unitOfWork.MembershipRepository;
+
+            var memberToDelete = membershiprepo.GetFirstOrDefault(m => m.MemberId == MemberId && m.Status == "Active");
+
+            if(memberToDelete != null)
+            {
+                return false;
+            }
+
+            membershiprepo.Delete(memberToDelete);
+
+            return _unitOfWork.SaveChanges() > 0;
+
+
         }
 
         #region Helper Methods.
