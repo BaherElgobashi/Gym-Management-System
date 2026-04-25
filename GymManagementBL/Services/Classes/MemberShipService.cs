@@ -61,6 +61,27 @@ namespace GymManagementBLL.Services.Classes
             throw new NotImplementedException();
         }
 
-        
+        #region Helper Methods.
+
+        private bool IsMemberExists(int memberId)
+        {
+            return _unitOfWork.GetRepository<Member>().GetById(memberId) is not null;
+        }
+
+        private bool IsPlanExists(int planId)
+        {
+            return _unitOfWork.GetRepository<Plan>().GetById(planId) is not null;
+
+        }
+
+        private bool HasActiveMemberShip(int memberId)
+        {
+            return _unitOfWork.MembershipRepository
+                    .GetAllMembershipsWithMembersAndPlans(m => m.MemberId == memberId && m.Status == "Active").Any();
+        }
+
+        #endregion
+
+
     }
 }
