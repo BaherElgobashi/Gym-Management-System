@@ -35,7 +35,11 @@ namespace GymManagementBLL.Services.Classes
 
         public IEnumerable<MemberForSelectListViewModel> GetMembersForDropDown()
         {
-            throw new NotImplementedException();
+            var MembersForDropDown = _unitOfWork.GetRepository<Member>().GetAll();
+
+            var MembersForSelectViewModel = _mapper.Map<IEnumerable<MemberForSelectListViewModel>>(MembersForDropDown);
+
+            return MembersForSelectViewModel;
         }
 
         public IEnumerable<PlanForSelectListViewModel> GetPlansForDropDown()
