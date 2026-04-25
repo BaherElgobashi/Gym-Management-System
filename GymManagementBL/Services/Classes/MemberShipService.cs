@@ -2,6 +2,7 @@
 using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.MemberShipViewModel;
 using GymManagementBLL.ViewModels.MemberShipViewModels;
+using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,12 @@ namespace GymManagementBLL.Services.Classes
         
         public IEnumerable<MemberShipViewModel> GetAllMemberShips()
         {
-            throw new NotImplementedException();
+            var MemberShips = _unitOfWork.MembershipRepository.GetAllMembershipsWithMembersAndPlans( m => m.Status == "Active");
+
+            var MemberShipsViewModels = _mapper.Map<IEnumerable<MemberShipViewModel>>(MemberShips);
+
+            return MemberShipsViewModels;
+
         }
 
         public IEnumerable<MemberForSelectListViewModel> GetMembersForDropDown()
