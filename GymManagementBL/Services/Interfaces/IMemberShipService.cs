@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Interfaces
 {
-    public interface IMemberShipRepository
+    public interface IMemberShipService
     {
         IEnumerable<MemberShipViewModel> GetAllMemberShips();
         IEnumerable<MemberForSelectListViewModel> GetMembersForDropDown();
