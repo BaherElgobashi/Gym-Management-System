@@ -18,6 +18,15 @@ namespace GymManagementPL.Controllers
             return View(MemberShips);
         }
 
+        public IActionResult Create()
+        {
+
+            LoadDropDown();
+
+            return View();
+
+        }
+
 
 
 
