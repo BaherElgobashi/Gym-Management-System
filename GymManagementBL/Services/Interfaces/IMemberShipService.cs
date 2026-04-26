@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Interfaces
 {
-    public interface IMemberShipService
+    public interface IMembershipService
     {
-        IEnumerable<MemberShipViewModel> GetAllMemberShips();
+        IEnumerable<MembershipViewModel> GetAllMemberShips();
         IEnumerable<MemberForSelectListViewModel> GetMembersForDropDown();
         IEnumerable<PlanForSelectListViewModel> GetPlansForDropDown();
-        bool CreateMemberShip(CreateMemberShipViewModel Model);
+        bool CreateMemberShip(CreateMembershipViewModel Model);
         bool DeleteMemberShip(int MemberId);
 
     }

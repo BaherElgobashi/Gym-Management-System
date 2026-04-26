@@ -5,9 +5,9 @@ namespace GymManagementPL.Controllers
 {
     public class MemberShipController : Controller
     {
-        private readonly IMemberShipService _memberShipService;
+        private readonly IMembershipService _memberShipService;
 
-        public MemberShipController(IMemberShipService memberShipService)
+        public MemberShipController(IMembershipService memberShipService)
         {
             _memberShipService = memberShipService;
         }

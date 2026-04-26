@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.ViewModels.MemberShipViewModel
 {
-    public class MemberShipViewModel
+    public class MembershipViewModel
     {
         public int MemberId { get; set; }
         public string MemberName { get; set; } = default!;

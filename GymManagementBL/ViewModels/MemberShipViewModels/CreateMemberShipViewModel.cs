@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.ViewModels.MemberShipViewModels
 {
-    public class CreateMemberShipViewModel
+    public class CreateMembershipViewModel
     {
         public int MemberId { get; set; }
         public int PlanId { get; set; }

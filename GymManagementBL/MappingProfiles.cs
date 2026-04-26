@@ -138,7 +138,7 @@ namespace GymManagementBLL
 
         private void MapMemberShip()
         {
-            CreateMap<Membership, MemberShipViewModel>()
+            CreateMap<Membership, MembershipViewModel>()
                       .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
                       .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Plan.Name))
                       .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreatedAt));

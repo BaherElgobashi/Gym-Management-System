@@ -13,22 +13,22 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    public class MemberShipService : IMemberShipService
+    public class MembershipService : IMembershipService
     {
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public MemberShipService(IUnitOfWork unitOfWork, IMapper mapper)
+        public MembershipService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         
-        public IEnumerable<MemberShipViewModel> GetAllMemberShips()
+        public IEnumerable<MembershipViewModel> GetAllMemberShips()
         {
             var MemberShips = _unitOfWork.MembershipRepository.GetAllMembershipsWithMembersAndPlans( m => m.Status == "Active");
 
-            var MemberShipsViewModels = _mapper.Map<IEnumerable<MemberShipViewModel>>(MemberShips);
+            var MemberShipsViewModels = _mapper.Map<IEnumerable<MembershipViewModel>>(MemberShips);
 
             return MemberShipsViewModels;
 
@@ -51,7 +51,7 @@ namespace GymManagementBLL.Services.Classes
 
             return PlansForSelectViewModel;
         }
-        public bool CreateMemberShip(CreateMemberShipViewModel Model)
+        public bool CreateMemberShip(CreateMembershipViewModel Model)
         {
             if(IsMemberExists(Model.MemberId) && IsPlanExists(Model.PlanId) && HasActiveMemberShip(Model.MemberId))
             {
