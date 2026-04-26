@@ -13,7 +13,8 @@ namespace GymManagementPL.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var sessions = _bookingService.GetAllSessionsWithTrainerAndCategory(); 
+            return View(sessions);
         }
     }
 }
