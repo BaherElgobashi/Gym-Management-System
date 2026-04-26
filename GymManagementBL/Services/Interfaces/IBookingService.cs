@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.ViewModels.SessionViewModels;
+﻿using GymManagementBLL.ViewModels.BookingViewModels;
+using GymManagementBLL.ViewModels.SessionViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace GymManagementBLL.Services.Interfaces
     public interface IBookingService
     {
         IEnumerable<SessionViewModel> GetAllSessionsWithTrainerAndCategory();
+        IEnumerable<MemberForSessionViewModel> GetAllMembersForSession(int id);
+
     }
 }
