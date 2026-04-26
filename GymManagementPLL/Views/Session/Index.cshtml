@@ -1,11 +1,8 @@
-﻿
-@model IEnumerable<SessionViewModel>
+﻿@model IEnumerable<SessionViewModel>
 @{
     ViewData["Title"] = "Session";
 }
-
 <partial name="_Alert" />
-
 <div class="container">
     <header class="d-flex justify-content-between mt-5 mb-4 align-items-center">
         <div>
@@ -22,53 +19,68 @@
         <div class="row g-4">
             @foreach (var session in Model)
             {
+               
+                var statusClass = session.Status.Contains("Ongoing") ? "bg-success" :
+                                 session.Status.Contains("Upcoming") ? "bg-primary" : "bg-secondary";
+                
+                var iconClass = session.Status.Contains("Ongoing") ? "text-success" :
+                               session.Status.Contains("Upcoming") ? "text-primary" : "text-secondary";
+
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-0 session-card">
-                        <div class="card-header text-white py-3 @(session.Status == "Ongoing" ? "bg-success"
-                                                                           : session.Status == "Upcoming" ? "bg-primary" : "bg-secondary")">
+                        
+                        <div class="card-header text-white py-3 @statusClass border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">
+                                <h5 class="mb-0 fw-bold">
                                     <i class="bi bi-calendar-event me-2"></i>@session.CategoryName
                                 </h5>
-                                <span class="badge bg-light text-dark">@session.Status</span>
+                                
+                                <span class="badge bg-white @(session.Status.Contains("Ongoing") ? "text-success" : "text-primary") shadow-sm">
+                                    @session.Status
+                                </span>
                             </div>
                         </div>
                         <div class="card-body">
-                            <p class="text-muted mb-3">@session.Description</p>
+                            <p class="text-muted mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                @session.Description
+                            </p>
 
                             <div class="session-info mb-3">
                                 <div class="info-item mb-2">
-                                    <i class="bi bi-person-circle text-primary-color me-2"></i>
+                                    <i class="bi bi-person-circle @iconClass me-2"></i>
                                     <strong>Trainer:</strong> @session.TrainerName
                                 </div>
                                 <div class="info-item mb-2">
-                                    <i class="bi bi-calendar3 text-primary-color me-2"></i>
+                                    <i class="bi bi-calendar3 @iconClass me-2"></i>
                                     <strong>Date:</strong> @session.DateDisplay
                                 </div>
                                 <div class="info-item mb-2">
-                                    <i class="bi bi-clock text-primary-color me-2"></i>
+                                    <i class="bi bi-clock @iconClass me-2"></i>
                                     <strong>Time:</strong> @session.TimeRangeDisplay
                                 </div>
                                 <div class="info-item mb-2">
-                                    <i class="bi bi-hourglass-split text-primary-color me-2"></i>
+                                    <i class="bi bi-hourglass-split @iconClass me-2"></i>
                                     <strong>Duration:</strong> @session.Duration
                                 </div>
                                 <div class="info-item">
-                                    <i class="bi bi-people text-primary-color me-2"></i>
-                                    <strong>Capacity:</strong> @session.AvaliableSlots/@session.Capacity slots
+                                    <i class="bi bi-people @iconClass me-2"></i>
+                                    <strong>Capacity:</strong>
+                                    <span class="@(session.AvaliableSlots == 0 ? "text-danger fw-bold" : "")">
+                                        @session.AvaliableSlots/@session.Capacity slots
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer bg-white border-0">
+                        <div class="card-footer bg-white border-0 pb-3">
                             <div class="d-grid gap-2">
-                                <a asp-action="Details" asp-route-id="@session.Id" class="btn btn-outline btn-sm">
+                                <a asp-action="Details" asp-route-id="@session.Id" class="btn btn-outline-secondary btn-sm rounded-pill">
                                     <i class="bi bi-eye me-1"></i>View Details
                                 </a>
                                 <div class="d-flex gap-2">
-                                    <a asp-action="Edit" asp-route-id="@session.Id" class="btn btn-outline btn-sm flex-fill">
+                                    <a asp-action="Edit" asp-route-id="@session.Id" class="btn btn-outline-dark btn-sm flex-fill rounded-pill">
                                         <i class="bi bi-pencil me-1"></i>Edit
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@session.Id" class="btn btn-outline text-danger btn-sm flex-fill">
+                                    <a asp-action="Delete" asp-route-id="@session.Id" class="btn btn-outline-danger btn-sm flex-fill rounded-pill">
                                         <i class="bi bi-trash me-1"></i>Delete
                                     </a>
                                 </div>
@@ -92,3 +104,19 @@
 @section Scripts {
     <partial name="_AlertBoxScripts" />
 }
+
+<style>
+    .session-card {
+        transition: all 0.3s ease;
+    }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12) !important;
+        }
+
+    .badge {
+        font-size: 0.8rem;
+        padding: 0.5em 0.8em;
+    }
+</style>

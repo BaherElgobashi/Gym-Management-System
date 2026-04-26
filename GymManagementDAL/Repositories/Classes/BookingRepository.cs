@@ -1,6 +1,7 @@
 ﻿using GymManagementDAL.Contexts;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,11 @@ namespace GymManagementDAL.Repositories.Classes
 
         public IEnumerable<MemberSession> GetSessionById(int sessionId)
         {
-            throw new NotImplementedException();
+            return _dbContext.MemberSessions.Where(ms => ms.SessionId == sessionId)
+                                            .Include(ms => ms.Member)
+                                            .ToList();
         }
 
-       
+
     }
 }
