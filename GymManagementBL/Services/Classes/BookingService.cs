@@ -7,6 +7,7 @@ using GymManagementDAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +28,17 @@ namespace GymManagementBLL.Services.Classes
 
         public IEnumerable<SessionViewModel> GetAllSessionsWithTrainerAndCategory()
         {
-            //var sessionWithTrainerandCtaegory = _unitOfWork.
+            var sessionRepo = _unitOfWork.SessionRepository;
+            var sessions = _unitOfWork.SessionRepository.GetAllSessionsWithTrainerAndCategory();
+            var sessionViewModels = _mapper.Map<IEnumerable<SessionViewModel>>(sessions);
+
+            foreach( var session in sessionViewModels)
+            {
+                session.AvaliableSlots = sessionRepo.GetCountOfBookedSlots(session.Id);
+            }
+
+            return sessionViewModels;
+
         }
         public IEnumerable<MemberForSessionViewModel> GetAllMembersForSession(int id)
         {
