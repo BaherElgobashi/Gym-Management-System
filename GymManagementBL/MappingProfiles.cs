@@ -143,7 +143,7 @@ namespace GymManagementBLL
                       .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Plan.Name))
                       .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreatedAt));
 
-            CreateMap<CreateMemberViewModel, Membership>()
+            CreateMap<CreateMembershipViewModel, Membership>()
                       .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.Now));
 
             CreateMap<Plan, PlanForSelectListViewModel>();

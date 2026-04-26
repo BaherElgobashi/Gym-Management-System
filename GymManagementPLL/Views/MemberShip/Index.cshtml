@@ -42,8 +42,8 @@
                             <tr>
                                 <td>@item.MemberName</td>
                                 <td>@item.PlanName</td>
-                                <td>@item.StartDate</td>
-                                <td>@item.EndDate</td>
+                                <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <div class="d-flex gap-1">
                                         <form method="post" asp-action="Cancel" class="m-0">

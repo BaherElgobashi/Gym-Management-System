@@ -1,4 +1,5 @@
-﻿using GymManagementBLL.Services.Interfaces;
+﻿using GymManagementBLL.Services.Classes;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.MemberShipViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,15 +10,15 @@ namespace GymManagementPL.Controllers
     [Authorize]
     public class MembershipController : Controller
     {
-        private readonly IMembershipService _memberShipService;
+        private readonly IMembershipService _membershipService;
 
         public MembershipController(IMembershipService memberShipService)
         {
-            _memberShipService = memberShipService;
+            _membershipService = memberShipService;
         }
         public IActionResult Index()
         {
-            var MemberShips = _memberShipService.GetAllMemberShips();
+            var MemberShips = _membershipService.GetAllMemberships();
             return View(MemberShips);
         }
 
@@ -36,7 +37,7 @@ namespace GymManagementPL.Controllers
         {
             if (ModelState.IsValid) 
             {
-                var result = _memberShipService.CreateMemberShip(model);
+                var result = _membershipService.CreateMembership(model);
                 if (result)
                 {
                     TempData["SuccessMessage"] = "Membership is Created Successfully.";
@@ -54,8 +55,20 @@ namespace GymManagementPL.Controllers
 
         }
 
-
-
+        [HttpPost]
+        public IActionResult Cancel(int id)
+        {
+            var result = _membershipService.DeleteMembership(id);
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Membership cancelled successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete membership!";
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
 
 
@@ -81,8 +94,8 @@ namespace GymManagementPL.Controllers
 
         private void LoadDropDown()
         {
-            var members = _memberShipService.GetMembersForDropDown();
-            var plans = _memberShipService.GetPlansForDropDown();
+            var members = _membershipService.GetMembersForDropDown();
+            var plans = _membershipService.GetPlansForDropDown();
 
             ViewBag.Members = new SelectList(members , "Id" , "Name");
             ViewBag.Plans = new SelectList(plans, "Id" , "Name");

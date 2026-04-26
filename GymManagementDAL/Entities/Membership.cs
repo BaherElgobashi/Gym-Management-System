@@ -22,12 +22,12 @@ namespace GymManagementDAL.Entities
             {
                 if (EndDate >= DateTime.Now)
                 {
-                    return "Expired.";
+                    return "Active";
 
                 }
                 else
                 {
-                    return "Active.";
+                    return "Expired";
                 }
             }
         

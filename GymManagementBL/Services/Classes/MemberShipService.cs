@@ -24,9 +24,10 @@ namespace GymManagementBLL.Services.Classes
             _mapper = mapper;
         }
         
-        public IEnumerable<MembershipViewModel> GetAllMemberShips()
+        public IEnumerable<MembershipViewModel> GetAllMemberships()
         {
-            var MemberShips = _unitOfWork.MembershipRepository.GetAllMembershipsWithMembersAndPlans( m => m.Status == "Active");
+            var MemberShips = _unitOfWork.MembershipRepository
+                              .GetAllMembershipsWithMembersAndPlans( m => m.Status == "Active");
 
             var MemberShipsViewModels = _mapper.Map<IEnumerable<MembershipViewModel>>(MemberShips);
 
@@ -51,9 +52,9 @@ namespace GymManagementBLL.Services.Classes
 
             return PlansForSelectViewModel;
         }
-        public bool CreateMemberShip(CreateMembershipViewModel Model)
+        public bool CreateMembership(CreateMembershipViewModel Model)
         {
-            if(IsMemberExists(Model.MemberId) && IsPlanExists(Model.PlanId) && HasActiveMemberShip(Model.MemberId))
+            if( !IsMemberExists(Model.MemberId) && !IsPlanExists(Model.PlanId) && HasActiveMemberShip(Model.MemberId))
             {
                 return false;
             }
@@ -72,13 +73,13 @@ namespace GymManagementBLL.Services.Classes
 
         }
 
-        public bool DeleteMemberShip(int MemberId)
+        public bool DeleteMembership(int MemberId)
         {
             var membershiprepo = _unitOfWork.MembershipRepository;
 
             var memberToDelete = membershiprepo.GetFirstOrDefault(m => m.MemberId == MemberId && m.Status == "Active");
 
-            if(memberToDelete != null)
+            if(memberToDelete == null)
             {
                 return false;
             }
