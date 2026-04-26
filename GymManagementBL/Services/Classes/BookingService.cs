@@ -75,7 +75,29 @@ namespace GymManagementBLL.Services.Classes
 
         public bool CreateBooking(CreateBookingViewModel model)
         {
-            throw new NotImplementedException();
+            var session = _unitOfWork.SessionRepository.GetById(model.SessionId);
+
+            if (session is null || session.StartDate <= DateTime.UtcNow)
+                return false;
+
+            var membershipRepo = _unitOfWork.MembershipRepository;
+            var activeMembershipForMember = membershipRepo.GetFirstOrDefault(m => m.Status == "Active" && m.MemberId == model.MemberId);
+
+            if (activeMembershipForMember is null)
+                return false;
+
+            var sessionRepo = _unitOfWork.SessionRepository;
+            var bookedSlots = sessionRepo.GetCountOfBookedSlots(model.SessionId);
+
+            var availableSlots = session.Capacity - bookedSlots;
+            if (availableSlots <= 0)
+                return false;
+
+            var booking = _mapper.Map<MemberSession>(model);
+            booking.IsAttended = false;
+
+            _unitOfWork.BookingRepository.Add(booking);
+            return _unitOfWork.SaveChanges() > 0;
         }
 
         
