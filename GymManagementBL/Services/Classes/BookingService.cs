@@ -27,7 +27,7 @@ namespace GymManagementBLL.Services.Classes
 
         public IEnumerable<SessionViewModel> GetAllSessionsWithTrainerAndCategory()
         {
-            throw new NotImplementedException();
+            //var sessionWithTrainerandCtaegory = _unitOfWork.
         }
         public IEnumerable<MemberForSessionViewModel> GetAllMembersForSession(int id)
         {
