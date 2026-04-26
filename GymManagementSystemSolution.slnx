@@ -1,4 +1,6 @@
 <Solution>
+  <Folder Name="/ScreenShots/" />
+  <Folder Name="/ScreenShots/Admins/" />
   <Project Path="GymManagementBL/GymManagementBLL.csproj" />
   <Project Path="GymManagementDAL/GymManagementDAL.csproj" />
   <Project Path="GymManagementPLL/GymManagementPL.csproj" />

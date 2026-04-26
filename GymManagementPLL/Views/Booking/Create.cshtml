@@ -1,55 +1,62 @@
-﻿
-@model CreateBookingViewModel
+﻿@model CreateBookingViewModel
 
 @{
-    ViewData["Title"] = "Create new booking";
+    ViewData["Title"] = "Create New Booking";
 }
 
-<h1>Create New Booking</h1>
-
-<hr />
-<div class="row">
-    <div class="d-flex justify-content-center align-items-center h-100">
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Booking Information</h5>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-person-plus-fill me-2"></i> Booking Information
+                    </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form asp-action="Create" method="post">
-                        <div class="mb-3">
-                            <input type="hidden" asp-for="SessionId" value="@ViewContext.RouteData.Values["id"]" readonly />
-                            <label asp-for="MemberId" class="form-label">Member</label>
-                            <select asp-for="MemberId" asp-items="ViewBag.Members" class="form-select">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="SessionId" value="@ViewContext.RouteData.Values["id"]" />
+
+                        <div class="mb-4">
+                            <label asp-for="MemberId" class="form-label fw-bold">Member</label>
+                            <select asp-for="MemberId" asp-items="ViewBag.Members" class="form-select select2-member">
                                 <option value="">-- Select Member --</option>
                             </select>
+                            <span asp-validation-for="MemberId" class="text-danger"></span>
                         </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Create Booking
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-plus-lg me-1"></i> Create Booking
                             </button>
                             <a asp-action="GetMembersForUpcomingSession" asp-route-id="@ViewContext.RouteData.Values["id"]" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Back to List
+                                <i class="bi bi-arrow-left me-1"></i> Back to List
                             </a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
-<script src="../js/jquery.validate.min.js"></script>
-<script src="../js/jquery.validate.unobtrusive.min.js"></script>
-<script>
-    $(document).ready(function() {
-    $('#MemberId').select2({
-    placeholder: "Select a member",
-    allowClear: true,
-    width: '100%'
-    });
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+        $('.select2-member').select2({
+        placeholder: "Select a member",
+        allowClear: true,
+        width: '100%'
+        });
+        });
+    </script>
+}
