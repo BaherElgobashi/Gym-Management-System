@@ -17,10 +17,12 @@ namespace GymManagementDAL.Repositories.Classes
         {
             _dbContext = dbContext;
         }
-        
-        MemberSession? IGenericRepository<MemberSession>.GetById(int Id)
+
+        public IEnumerable<MemberSession> GetSessionById(int sessionId)
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }
