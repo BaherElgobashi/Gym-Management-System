@@ -119,7 +119,22 @@ namespace GymManagementBLL.Services.Classes
 
         public bool MemberAttended(MemberAttendOrCancelViewModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var memberSession = _unitOfWork.GetRepository<MemberSession>()
+                                           .GetAll(X => X.MemberId == model.MemberId && X.SessionId == model.SessionId)
+                                           .FirstOrDefault();
+                if (memberSession is null) return false;
+
+                memberSession.IsAttended = true;
+                memberSession.UpdatedAt = DateTime.Now;
+                _unitOfWork.GetRepository<MemberSession>().Update(memberSession);
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
