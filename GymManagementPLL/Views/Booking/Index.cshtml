@@ -14,11 +14,10 @@
             </div>
         </header>
 
-
         <div class="row g-4 ">
-            @foreach (var session in Model.Where(s => s.Status.ToLower() == "upcoming"))
+            @* التعديل هنا: استخدام StartsWith عشان يلقط الكلمة حتى لو وراها نقطة *@
+            @foreach (var session in Model.Where(s => s.Status.Trim().ToLower().StartsWith("upcoming")))
             {
-
                 <div class=" col-12 col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-0 session-card">
                         <div class="card-header text-white py-3 bg-primary ">
@@ -64,10 +63,8 @@
                         </div>
                     </div>
                 </div>
-
             }
         </div>
-
 
         <header class="d-flex justify-content-between mt-5 mb-4 align-items-center">
             <div>
@@ -76,9 +73,9 @@
             </div>
         </header>
 
-
         <div class="row g-4 ">
-            @foreach (var session in Model.Where(s => s.Status.ToLower() == "ongoing"))
+            @* التعديل هنا: استخدام StartsWith عشان يلقط الكلمة حتى لو وراها نقطة *@
+            @foreach (var session in Model.Where(s => s.Status.Trim().ToLower().StartsWith("ongoing")))
             {
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-0 session-card">
@@ -125,7 +122,6 @@
                         </div>
                     </div>
                 </div>
-
             }
         </div>
 
