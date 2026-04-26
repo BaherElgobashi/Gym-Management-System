@@ -65,36 +65,29 @@ Select2 Integration: Enhanced dropdowns for member selection in bookings.
 
 
 ---
-
-📂 Project Structure
+## 📂 Project Structure
 
 Gym_Management_System/
-│
-├─ Presentation/               # MVC Layer (Controllers, Views)
+
+├─ Presentation/
 │   ├─ Controllers/
-│   ├─ Views/
-│   │   ├─ Booking/
-│   │   ├─ Membership/
-│   │   └─ Shared/
-│
-├─ BusinessLogic/              # Services, DTOs, ViewModels
+│   └─ Views/
+│       ├─ Booking/
+│       ├─ Membership/
+│       └─ Shared/
+
+├─ BusinessLogic/
 │   ├─ Services/
-│   │   ├─ Classes/            # Service Implementations
-│   │   └─ Interfaces/
+│   │   ├─ Interfaces/
+│   │   └─ Classes/
 │   └─ ViewModels/
-│       ├─ BookingViewModels/
-│       └─ MembershipViewModels/
-│
-├─ DataAccess/                 # Repositories and DbContext
+
+├─ DataAccess/
 │   ├─ Repositories/
-│   │   ├─ Classes/
-│   │   └─ Interfaces/
 │   └─ GymSystemDbContext.cs
-│
-├─ Domain/                     # Entities, Enums
-│
-├─ wwwroot/                    # Static assets (JS, CSS)
-│
+
+├─ Domain/
+├─ wwwroot/
 └─ README.md
 
 
