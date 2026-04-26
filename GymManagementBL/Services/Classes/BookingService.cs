@@ -25,6 +25,17 @@ namespace GymManagementBLL.Services.Classes
             _mapper = mapper;
         }
 
+        public IEnumerable<MemberForSessionViewModel> GetAllMembersForSession(int id)
+        {
+            var BookingRepo = _unitOfWork.BookingRepository;
+
+            var members = BookingRepo.GetSessionById(id);
+
+            var MemberForSessionViewModels = _mapper.Map<IEnumerable<MemberForSessionViewModel>>(members);
+
+            return MemberForSessionViewModels;
+        }
+
 
         public IEnumerable<SessionViewModel> GetAllSessionsWithTrainerAndCategory()
         {
@@ -40,10 +51,7 @@ namespace GymManagementBLL.Services.Classes
             return sessionViewModels;
 
         }
-        public IEnumerable<MemberForSessionViewModel> GetAllMembersForSession(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public IEnumerable<MemberForSelectListViewModel> GetMemberForDropdown(int id)
         {
