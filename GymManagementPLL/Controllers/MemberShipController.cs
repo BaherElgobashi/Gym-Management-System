@@ -1,9 +1,12 @@
 ﻿using GymManagementBLL.Services.Interfaces;
+using GymManagementBLL.ViewModels.MemberShipViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GymManagementPL.Controllers
 {
+    [Authorize]
     public class MembershipController : Controller
     {
         private readonly IMembershipService _memberShipService;
@@ -26,6 +29,35 @@ namespace GymManagementPL.Controllers
             return View();
 
         }
+
+
+        [HttpPost]
+        public IActionResult Create(CreateMembershipViewModel model)
+        {
+            if (ModelState.IsValid) 
+            {
+                var result = _memberShipService.CreateMemberShip(model);
+                if (result)
+                {
+                    TempData["SuccessMessage"] = "Membership is Created Successfully.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to Create Membership.";
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            TempData["ErrorMessage"] = "Membership cannot be created, Check your data!";
+            LoadDropDown();
+            return View(model);
+
+
+        }
+
+
+
+
+
 
 
 
