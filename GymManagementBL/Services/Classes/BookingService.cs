@@ -70,7 +70,22 @@ namespace GymManagementBLL.Services.Classes
         }
         public bool CancelBooking(MemberAttendOrCancelViewModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var session = _unitOfWork.SessionRepository.GetById(model.SessionId);
+                if (session is null || session.StartDate <= DateTime.Now) return false;
+
+                
+                var Booking = _unitOfWork.BookingRepository.GetAll(X => X.MemberId == model.MemberId && X.SessionId == model.SessionId)
+                                                           .FirstOrDefault();
+                if (Booking is null) return false;
+                _unitOfWork.BookingRepository.Delete(Booking);
+                return _unitOfWork.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool CreateBooking(CreateBookingViewModel model)
