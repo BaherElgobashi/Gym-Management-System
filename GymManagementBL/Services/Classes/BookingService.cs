@@ -3,6 +3,7 @@ using GymManagementBLL.Services.Interfaces;
 using GymManagementBLL.ViewModels.BookingViewModels;
 using GymManagementBLL.ViewModels.MemberShipViewModel;
 using GymManagementBLL.ViewModels.SessionViewModels;
+using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,17 @@ namespace GymManagementBLL.Services.Classes
 
         public IEnumerable<MemberForSelectListViewModel> GetMemberForDropdown(int id)
         {
-            throw new NotImplementedException();
+            var BookingRepo = _unitOfWork.BookingRepository;
+
+            var bookingMemberIds = BookingRepo.GetAll(s => s.Id == id)
+                                              .Select(ms => ms.MemberId)
+                                              .ToList();
+
+            var MemberAvaliableToBook = _unitOfWork.GetRepository<Member>().GetAll(m => !bookingMemberIds.Contains(m.Id));
+
+            var MemberSelectList = _mapper.Map<IEnumerable<MemberForSelectListViewModel>>(MemberAvaliableToBook);
+
+            return MemberSelectList;
         }
         public bool CancelBooking(MemberAttendOrCancelViewModel model)
         {
